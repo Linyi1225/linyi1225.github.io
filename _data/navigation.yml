@@ -1,0 +1,23 @@
+# 主导航
+main:
+  - title: "首页"
+    url: /
+  - title: "学术笔记"
+    url: /notes/
+  - title: "代码实现"
+    url: /code/
+  - title: "标签索引"
+    url: /tags/
+  - title: "关于"
+    url: /about/
+
+# 动态侧边栏 - 根据内容自动生成
+dynamic:
+  - title: "快速导航"
+    children:
+      - title: "返回笔记首页"
+        url: /notes/
+      - title: "浏览所有标签"
+        url: /tags/
+      - title: "代码仓库"
+        url: /code/
