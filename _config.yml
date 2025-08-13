@@ -2,13 +2,13 @@
 title: "学术研究托管"
 subtitle: "Mathematical Research Notes"
 description: "个人学术研究与理论探索"
-author: "你的姓名"
+author: "Linyi"
 email: "lin@deep-matrix.org"
 
 # 网站设置
 url: "https://z-athena.org"
 baseurl: ""
-repository: "linyi1225.github.io"
+repository: "linyi1225/linyi1225.github.io"  # 修正：添加用户名
 
 # 主题配置 - 简洁学术风格
 remote_theme: "mmistakes/minimal-mistakes"
@@ -56,18 +56,18 @@ jekyll-archives:
     tag: /tags/:name/
     category: /categories/:name/
 
-# 导航菜单 - 保持通用
-main:
-  - title: "首页"
-    url: /
-  - title: "学术笔记"
-    url: /notes/
-  - title: "代码实现"
-    url: /code/
-  - title: "标签索引"
-    url: /tags/
-  - title: "关于"
-    url: /about/
+# 导航菜单 - 保持通用 (注意：这里应该在navigation.yml中定义)
+# main:
+#   - title: "首页"
+#     url: /
+#   - title: "学术笔记"
+#     url: /notes/
+#   - title: "代码实现"
+#     url: /code/
+#   - title: "标签索引"
+#     url: /tags/
+#   - title: "关于"
+#     url: /about/
 
 # 作者信息
 author:
@@ -75,14 +75,14 @@ author:
   avatar: "/assets/images/avatar.jpg"
   bio: "数学研究者"
   location: "中国"
-  email: ""
+  email: "lin@deep-matrix.org"  # 修正：保持一致
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/Linyi1225/linyi1225.github.io"
-    - label: "ORCID"
-      icon: "fab fa-fw fa-orcid"
-      url: "https://orcid.org/your-orcid"
+      url: "https://github.com/linyi1225"  # 修正：只需要用户名
+    - label: "Email"  # 修正：ORCID改为Email，如果你没有ORCID的话
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:lin@deep-matrix.org"
 
 # 默认设置
 defaults:
