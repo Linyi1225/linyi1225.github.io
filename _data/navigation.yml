@@ -21,3 +21,70 @@ dynamic:
         url: /tags/
       - title: "代码仓库"
         url: /code/
+
+# 学术笔记侧边栏（示例，可根据实际内容调整）
+notes_nav:
+  - title: "概率论相关"
+    children:
+      - title: "基础理论"
+        url: /tags/#probability
+      - title: "随机过程"
+        url: /tags/#stochastic-processes
+      - title: "随机微分方程"
+        url: /tags/#sde
+  - title: "数值分析"
+    children:
+      - title: "数值方法"
+        url: /tags/#numerical-methods
+      - title: "算法实现"
+        url: /tags/#algorithms
+  - title: "其他领域"
+    children:
+      - title: "查看所有标签"
+        url: /tags/
+
+# 代码实现侧边栏
+code_nav:
+  - title: "编程语言"
+    children:
+      - title: "Python"
+        url: /tags/#python
+      - title: "R"
+        url: /tags/#r
+      - title: "Julia"
+        url: /tags/#julia
+  - title: "应用领域"
+    children:
+      - title: "数值计算"
+        url: /tags/#numerical-computation
+      - title: "统计分析"
+        url: /tags/#statistical-analysis
+      - title: "机器学习"
+        url: /tags/#machine-learning
+
+# 按主题分类的侧边栏（可选）
+topics_nav:
+  - title: "数学基础"
+    children:
+      - title: "分析学"
+        url: /tags/#analysis
+      - title: "代数学"
+        url: /tags/#algebra
+      - title: "几何学"
+        url: /tags/#geometry
+  - title: "应用数学"
+    children:
+      - title: "概率统计"
+        url: /tags/#probability
+      - title: "数值计算"
+        url: /tags/#numerical-analysis
+      - title: "优化理论"
+        url: /tags/#optimization
+  - title: "跨学科"
+    children:
+      - title: "计算机科学"
+        url: /tags/#computer-science
+      - title: "物理学"
+        url: /tags/#physics
+      - title: "经济学"
+        url: /tags/#economics
