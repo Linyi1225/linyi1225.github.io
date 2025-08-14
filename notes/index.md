@@ -11,7 +11,14 @@ classes: wide
 
 ## 🔢 数值分析系列
 
-{% assign numerical_posts = site.notes | where_exp: "post", "post.path contains 'numerical-analysis'" | sort: 'date' %}
+{% assign numerical_posts = '' | split: '' %}
+{% for post in site.notes %}
+  {% if post.path contains 'numerical-analysis' %}
+    {% assign numerical_posts = numerical_posts | push: post %}
+  {% endif %}
+{% endfor %}
+{% assign numerical_posts = numerical_posts | sort: 'date' %}
+
 {% if numerical_posts.size > 0 %}
 
 <div class="entries-grid">
@@ -51,7 +58,14 @@ classes: wide
 
 ## 📊 概率论系列
 
-{% assign probability_posts = site.notes | where_exp: "post", "post.path contains 'probability-theory'" | sort: 'date' %}
+{% assign probability_posts = '' | split: '' %}
+{% for post in site.notes %}
+  {% if post.path contains 'probability-theory' %}
+    {% assign probability_posts = probability_posts | push: post %}
+  {% endif %}
+{% endfor %}
+{% assign probability_posts = probability_posts | sort: 'date' %}
+
 {% if probability_posts.size > 0 %}
 
 <div class="entries-grid">
@@ -91,7 +105,14 @@ classes: wide
 
 ## 📐 线性代数系列
 
-{% assign algebra_posts = site.notes | where_exp: "post", "post.path contains 'linear-algebra'" | sort: 'date' %}
+{% assign algebra_posts = '' | split: '' %}
+{% for post in site.notes %}
+  {% if post.path contains 'linear-algebra' %}
+    {% assign algebra_posts = algebra_posts | push: post %}
+  {% endif %}
+{% endfor %}
+{% assign algebra_posts = algebra_posts | sort: 'date' %}
+
 {% if algebra_posts.size > 0 %}
 
 <div class="entries-grid">
@@ -131,7 +152,28 @@ classes: wide
 
 ## 📝 其他主题
 
-{% assign other_posts = site.notes | where_exp: "post", "post.path contains 'numerical-analysis' == false and post.path contains 'probability-theory' == false and post.path contains 'linear-algebra' == false" | sort: 'date' | reverse %}
+{% assign other_posts = '' | split: '' %}
+{% for post in site.notes %}
+  {% assign is_numerical = false %}
+  {% assign is_probability = false %}
+  {% assign is_algebra = false %}
+  
+  {% if post.path contains 'numerical-analysis' %}
+    {% assign is_numerical = true %}
+  {% endif %}
+  {% if post.path contains 'probability-theory' %}
+    {% assign is_probability = true %}
+  {% endif %}
+  {% if post.path contains 'linear-algebra' %}
+    {% assign is_algebra = true %}
+  {% endif %}
+  
+  {% unless is_numerical or is_probability or is_algebra %}
+    {% assign other_posts = other_posts | push: post %}
+  {% endunless %}
+{% endfor %}
+{% assign other_posts = other_posts | sort: 'date' | reverse %}
+
 {% if other_posts.size > 0 %}
 
 <div class="entries-grid">
@@ -182,87 +224,3 @@ classes: wide
 
 ### 💬 交流反馈
 欢迎通过邮件或GitHub进行学术讨论，指正错误，提出建议。
-
----
-
-<style>
-.entries-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.entry {
-  padding: 1.5rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #007bff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.entry:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.entry h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-}
-
-.entry h3 a {
-  color: #333;
-  text-decoration: none;
-}
-
-.entry h3 a:hover {
-  color: #007bff;
-}
-
-.excerpt {
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-}
-
-.entry-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.entry-date {
-  color: #6c757d;
-  font-size: 0.9rem;
-}
-
-.entry-tags {
-  display: flex;
-  gap: 0.3rem;
-  flex-wrap: wrap;
-}
-
-.tag {
-  background: #e9ecef;
-  color: #495057;
-  padding: 0.2rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-@media (max-width: 768px) {
-  .entries-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .entry-meta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-</style>
