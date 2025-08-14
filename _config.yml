@@ -1,33 +1,142 @@
----
-title: "学术笔记"
-layout: collection
-permalink: /notes/
-collection: notes
-entries_layout: grid
-classes: wide
----
+# ============================================================================
+# GitHub Pages 兼容配置
+# ============================================================================
 
-{% if site.notes.size > 0 %}
-  {% assign sorted_notes = site.notes | sort: 'date' | reverse %}
-  
-  <div class="entries-{{ entries_layout }}">
-    {% for post in sorted_notes %}
-      {% include archive-single.html type=entries_layout %}
-    {% endfor %}
-  </div>
-{% else %}
-  <p>暂无学术笔记内容，敬请期待...</p>
-{% endif %}
+# 网站基本信息
+title: "Deep Matrix Research"
+subtitle: "Mathematical Insights & Computational Explorations"
+description: "个人数学研究笔记与理论探索 | Mathematical Research & Theoretical Analysis"
+author: "Linyi"
+email: "lin@deep-matrix.org"
 
----
+# 网站设置
+url: "https://z-athena.org"
+baseurl: ""
+repository: "linyi1225/linyi1225.github.io"
 
-## 📚 关于学术笔记
+# 主题配置 - 使用远程主题
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin: "contrast"
 
-这里收录了我的数学研究笔记和理论探索文档，涵盖：
+# 必须在 plugins 之前声明
+plugins:
+  - jekyll-remote-theme
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
 
-- **理论数学**：代数、分析、几何等核心领域
-- **应用数学**：计算方法、数值分析、优化理论
-- **跨学科研究**：数学在其他领域的应用
-- **学习总结**：重要数学概念的深度理解
+# Markdown配置
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  syntax_highlighter: rouge
 
-每篇笔记都包含详细的数学推导和个人思考，希望能为同行研究者提供参考。
+# 分页设置
+paginate: 5
+paginate_path: /page:num/
+
+# 集合配置 - 保持原有名称
+collections:
+  notes:
+    output: true
+    permalink: /:collection/:name/
+  code:
+    output: true
+    permalink: /:collection/:name/
+
+# 作者信息
+author:
+  name: "Linyi"
+  avatar: "/assets/images/avatar.jpg"
+  bio: "数学研究者 | 理论探索 | 计算数学"
+  location: "中国"
+  email: "lin@deep-matrix.org"
+  links:
+    - label: "ORCID"
+      icon: "fab fa-fw fa-orcid"
+      url: "https://orcid.org/0009-0009-6464-2663"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/linyi1225"
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:lin@deep-matrix.org"
+
+# 默认设置
+defaults:
+  - scope:
+      path: "_notes"
+      type: notes
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+  - scope:
+      path: "_code"
+      type: code
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+  - scope:
+      path: "_posts"
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+
+# 搜索
+search: true
+
+# 社交设置
+social:
+  type: Person
+  name: Linyi
+  links:
+    - "https://github.com/linyi1225"
+    - "https://orcid.org/0009-0009-6464-2663"
+
+# SEO
+locale: "zh-CN"
+title_separator: "-"
+
+# 压缩
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
+
+# 排除文件
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
