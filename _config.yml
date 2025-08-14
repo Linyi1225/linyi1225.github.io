@@ -1,33 +1,51 @@
+# ==============================================================================
+# 学术研究个人主页配置
+# ==============================================================================
+
 # 网站基本信息
-title: "学术研究托管"
-subtitle: "Mathematical Research Notes"
-description: "个人学术研究与理论探索"
+title: "Deep Matrix Research"
+subtitle: "Mathematical Insights & Computational Explorations"
+description: "个人数学研究笔记与理论探索 | Mathematical Research & Theoretical Analysis"
 author: "Linyi"
 email: "lin@deep-matrix.org"
 
 # 网站设置
 url: "https://z-athena.org"
 baseurl: ""
-repository: "linyi1225/linyi1225.github.io"  # 修正：添加用户名
+repository: "linyi1225/linyi1225.github.io"
+timezone: Asia/Shanghai
 
-# 主题配置 - 简洁学术风格
+# 主题配置 - 学术专业风格
 remote_theme: "mmistakes/minimal-mistakes"
-minimal_mistakes_skin: "default"
+minimal_mistakes_skin: "contrast"  # 更适合学术内容的对比度主题
 
-# 数学公式支持
+# Markdown和代码高亮
 markdown: kramdown
 highlighter: rouge
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
+  input: GFM
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
 
-# MathJax配置 - 完整数学支持
+# MathJax配置 - 完整数学公式支持
 mathjax:
   enable: true
   combo: "tex-mml-chtml"
   tags: "ams"
+  config: |
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      }
+    };
 
-# 插件
+# 插件配置
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
@@ -36,60 +54,80 @@ plugins:
   - jekyll-include-cache
   - jekyll-remote-theme
   - jekyll-archives
+  - jekyll-seo-tag
 
-# 动态内容集合 - 不预设具体领域
+# 分页设置
+paginate: 8
+paginate_path: /page:num/
+
+# 学术内容集合
 collections:
-  notes:
+  research:
     output: true
     permalink: /:collection/:name/
+    title: "研究笔记"
+  publications:
+    output: true
+    permalink: /:collection/:name/
+    title: "发表文章"
   code:
     output: true
     permalink: /:collection/:name/
+    title: "代码实现"
+  tutorials:
+    output: true
+    permalink: /:collection/:name/
+    title: "学习教程"
 
 # 标签和分类归档
 jekyll-archives:
   enabled:
     - tags
     - categories
+    - year
+    - month
   layout: archive-taxonomy
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+    year: /archive/:year/
+    month: /archive/:year/:month/
 
-# 导航菜单 - 保持通用 (注意：这里应该在navigation.yml中定义)
-# main:
-#   - title: "首页"
-#     url: /
-#   - title: "学术笔记"
-#     url: /notes/
-#   - title: "代码实现"
-#     url: /code/
-#   - title: "标签索引"
-#     url: /tags/
-#   - title: "关于"
-#     url: /about/
-
-# 作者信息
+# 作者详细信息
 author:
   name: "Linyi"
   avatar: "/assets/images/avatar.jpg"
-  bio: "数学研究者"
+  bio: "数学研究者 | 理论探索 | 计算数学"
   location: "中国"
-  email: "lin@deep-matrix.org"  # 修正：保持一致
+  email: "lin@deep-matrix.org"
   links:
+    - label: "ORCID"
+      icon: "fab fa-fw fa-orcid"
+      url: "https://orcid.org/0009-0009-6464-2663"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/linyi1225"  # 修正：只需要用户名
-    - label: "Email"  # 修正：ORCID改为Email，如果你没有ORCID的话
+      url: "https://github.com/linyi1225"
+    - label: "Email"
       icon: "fas fa-fw fa-envelope"
       url: "mailto:lin@deep-matrix.org"
+    - label: "Website"
+      icon: "fas fa-fw fa-globe"
+      url: "https://z-athena.org"
 
-# 默认设置
+# 社交分享设置
+social:
+  type: Person
+  name: Linyi
+  links:
+    - "https://github.com/linyi1225"
+    - "https://orcid.org/0009-0009-6464-2663"
+
+# 默认页面设置
 defaults:
-  # 学术笔记
+  # 研究笔记
   - scope:
-      path: "_notes"
-      type: notes
+      path: "_research"
+      type: research
     values:
       layout: single
       author_profile: true
@@ -98,8 +136,26 @@ defaults:
       share: true
       related: true
       sidebar:
-        nav: "dynamic"
-  # 代码文档
+        nav: "research"
+      toc: true
+      toc_label: "目录"
+      toc_icon: "cog"
+      
+  # 发表文章
+  - scope:
+      path: "_publications"
+      type: publications
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      sidebar:
+        nav: "publications"
+      
+  # 代码实现
   - scope:
       path: "_code"
       type: code
@@ -110,6 +166,35 @@ defaults:
       comments: false
       share: true
       related: true
+      classes: wide
+      
+  # 教程内容
+  - scope:
+      path: "_tutorials"
+      type: tutorials
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      toc: true
+      toc_label: "教程目录"
+      
+  # 博客文章
+  - scope:
+      path: "_posts"
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      show_date: true
+      
   # 普通页面
   - scope:
       path: ""
@@ -118,5 +203,47 @@ defaults:
       layout: single
       author_profile: true
 
+# 搜索设置
+search: true
+search_full_content: true
+search_provider: lunr
+
 # 相关文章设置
 related: true
+show_related: true
+
+# 评论系统（可选）
+comments:
+  provider: false  # 暂时关闭评论
+
+# 分析工具（可选）
+analytics:
+  provider: false  # 根据需要配置
+
+# SEO设置
+lang: zh-CN
+locale: zh-CN
+logo: "/assets/images/logo.png"  # 如果有logo的话
+
+# 网站图标
+favicon: "/assets/images/favicon.ico"
+
+# 压缩HTML
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
+
+# 排除文件
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
