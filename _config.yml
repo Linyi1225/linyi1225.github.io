@@ -1,249 +1,33 @@
-# ==============================================================================
-# 学术研究个人主页配置
-# ==============================================================================
+---
+title: "学术笔记"
+layout: collection
+permalink: /notes/
+collection: notes
+entries_layout: grid
+classes: wide
+---
 
-# 网站基本信息
-title: "Deep Matrix Research"
-subtitle: "Mathematical Insights & Computational Explorations"
-description: "个人数学研究笔记与理论探索 | Mathematical Research & Theoretical Analysis"
-author: "Linyi"
-email: "lin@deep-matrix.org"
+{% if site.notes.size > 0 %}
+  {% assign sorted_notes = site.notes | sort: 'date' | reverse %}
+  
+  <div class="entries-{{ entries_layout }}">
+    {% for post in sorted_notes %}
+      {% include archive-single.html type=entries_layout %}
+    {% endfor %}
+  </div>
+{% else %}
+  <p>暂无学术笔记内容，敬请期待...</p>
+{% endif %}
 
-# 网站设置
-url: "https://z-athena.org"
-baseurl: ""
-repository: "linyi1225/linyi1225.github.io"
-timezone: Asia/Shanghai
+---
 
-# 主题配置 - 学术专业风格
-remote_theme: "mmistakes/minimal-mistakes"
-minimal_mistakes_skin: "contrast"  # 更适合学术内容的对比度主题
+## 📚 关于学术笔记
 
-# Markdown和代码高亮
-markdown: kramdown
-highlighter: rouge
-kramdown:
-  math_engine: mathjax
-  syntax_highlighter: rouge
-  input: GFM
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
+这里收录了我的数学研究笔记和理论探索文档，涵盖：
 
-# MathJax配置 - 完整数学公式支持
-mathjax:
-  enable: true
-  combo: "tex-mml-chtml"
-  tags: "ams"
-  config: |
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
-      }
-    };
+- **理论数学**：代数、分析、几何等核心领域
+- **应用数学**：计算方法、数值分析、优化理论
+- **跨学科研究**：数学在其他领域的应用
+- **学习总结**：重要数学概念的深度理解
 
-# 插件配置
-plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
-  - jekyll-include-cache
-  - jekyll-remote-theme
-  - jekyll-archives
-  - jekyll-seo-tag
-
-# 分页设置
-paginate: 8
-paginate_path: /page:num/
-
-# 学术内容集合
-collections:
-  research:
-    output: true
-    permalink: /:collection/:name/
-    title: "研究笔记"
-  publications:
-    output: true
-    permalink: /:collection/:name/
-    title: "发表文章"
-  code:
-    output: true
-    permalink: /:collection/:name/
-    title: "代码实现"
-  tutorials:
-    output: true
-    permalink: /:collection/:name/
-    title: "学习教程"
-
-# 标签和分类归档
-jekyll-archives:
-  enabled:
-    - tags
-    - categories
-    - year
-    - month
-  layout: archive-taxonomy
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
-    year: /archive/:year/
-    month: /archive/:year/:month/
-
-# 作者详细信息
-author:
-  name: "Linyi"
-  avatar: "/assets/images/avatar.jpg"
-  bio: "数学研究者 | 理论探索 | 计算数学"
-  location: "中国"
-  email: "lin@deep-matrix.org"
-  links:
-    - label: "ORCID"
-      icon: "fab fa-fw fa-orcid"
-      url: "https://orcid.org/0009-0009-6464-2663"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/linyi1225"
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope"
-      url: "mailto:lin@deep-matrix.org"
-    - label: "Website"
-      icon: "fas fa-fw fa-globe"
-      url: "https://z-athena.org"
-
-# 社交分享设置
-social:
-  type: Person
-  name: Linyi
-  links:
-    - "https://github.com/linyi1225"
-    - "https://orcid.org/0009-0009-6464-2663"
-
-# 默认页面设置
-defaults:
-  # 研究笔记
-  - scope:
-      path: "_research"
-      type: research
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: false
-      share: true
-      related: true
-      sidebar:
-        nav: "research"
-      toc: true
-      toc_label: "目录"
-      toc_icon: "cog"
-      
-  # 发表文章
-  - scope:
-      path: "_publications"
-      type: publications
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: false
-      share: true
-      related: true
-      sidebar:
-        nav: "publications"
-      
-  # 代码实现
-  - scope:
-      path: "_code"
-      type: code
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: false
-      share: true
-      related: true
-      classes: wide
-      
-  # 教程内容
-  - scope:
-      path: "_tutorials"
-      type: tutorials
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: false
-      share: true
-      related: true
-      toc: true
-      toc_label: "教程目录"
-      
-  # 博客文章
-  - scope:
-      path: "_posts"
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: false
-      share: true
-      related: true
-      show_date: true
-      
-  # 普通页面
-  - scope:
-      path: ""
-      type: pages
-    values:
-      layout: single
-      author_profile: true
-
-# 搜索设置
-search: true
-search_full_content: true
-search_provider: lunr
-
-# 相关文章设置
-related: true
-show_related: true
-
-# 评论系统（可选）
-comments:
-  provider: false  # 暂时关闭评论
-
-# 分析工具（可选）
-analytics:
-  provider: false  # 根据需要配置
-
-# SEO设置
-lang: zh-CN
-locale: zh-CN
-logo: "/assets/images/logo.png"  # 如果有logo的话
-
-# 网站图标
-favicon: "/assets/images/favicon.ico"
-
-# 压缩HTML
-compress_html:
-  clippings: all
-  ignore:
-    envs: development
-
-# 排除文件
-exclude:
-  - .sass-cache/
-  - .jekyll-cache/
-  - gemfiles/
-  - Gemfile
-  - Gemfile.lock
-  - node_modules/
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-  - README.md
+每篇笔记都包含详细的数学推导和个人思考，希望能为同行研究者提供参考。
