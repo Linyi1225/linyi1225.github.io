@@ -1,66 +1,83 @@
 ---
-layout: splash
-title: "学术研究笔记"
-header:
-  overlay_color: "#000"
-  overlay_filter: "0.5"
-  overlay_image: /assets/images/research-bg.jpg
-excerpt: "数学理论探索与计算实现"
+title: "学术笔记"
+layout: single
+permalink: /notes/
+classes: wide
 ---
 
-## 最新内容
+## 📚 学术笔记集合
 
-{% assign latest_notes = site.notes | sort: 'date' | reverse | limit: 5 %}
-{% for note in latest_notes %}
-- [{{ note.title }}]({{ note.url }}) {% if note.tags %}<small>{{ note.tags | join: ", " }}</small>{% endif %}
-{% endfor %}
+{% if site.notes and site.notes.size > 0 %}
 
-## 研究领域
-
-<div class="tag-cloud">
-{% assign all_tags = site.notes | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
-{% for tag in all_tags %}
-  {% if tag != "" %}
-    {% assign tag_posts = site.notes | where_exp: "post", "post.tags contains tag" %}
-    <a href="{{ site.baseurl }}/tags/#{{ tag | slugify }}" class="tag-link">
-      {{ tag }} ({{ tag_posts.size }})
-    </a>
-  {% endif %}
+<div class="grid">
+{% for note in site.notes %}
+  <div class="grid__item">
+    <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+      <h2 class="archive__item-title" itemprop="headline">
+        <a href="{{ note.url | relative_url }}" rel="permalink">{{ note.title }}</a>
+      </h2>
+      
+      {% if note.excerpt %}
+        <p class="archive__item-excerpt" itemprop="description">{{ note.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+      {% endif %}
+      
+      {% if note.date %}
+        <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 日期：</strong> <time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%B %d, %Y" }}</time></p>
+      {% endif %}
+      
+      {% if note.tags and note.tags.size > 0 %}
+        <p class="page__meta">
+          <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 标签：</strong>
+          {% for tag in note.tags %}
+            <span class="page__taxonomy-item" rel="tag">{{ tag }}</span>{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </p>
+      {% endif %}
+    </article>
+  </div>
 {% endfor %}
 </div>
 
-<style>
-.tag-cloud {
-  margin: 2rem 0;
-}
-.tag-link {
-  display: inline-block;
-  margin: 0.25rem;
-  padding: 0.5rem 1rem;
-  background: #f1f3f4;
-  border-radius: 1rem;
-  text-decoration: none;
-  color: #333;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-.tag-link:hover {
-  background: #e8eaed;
-  color: #1a73e8;
-}
-</style>
+{% else %}
 
-## 关于本站
+<div class="notice--info">
+  <h4>暂无内容</h4>
+  <p>学术笔记正在整理中，敬请期待更多精彩内容...</p>
+</div>
 
-这是我的个人学术研究平台，记录数学理论学习、研究思考和代码实现。内容涵盖但不限于：
-
-- **理论数学**：从基础到前沿的数学理论
-- **应用数学**：数值计算、算法设计
-- **代码实现**：理论的程序化实现
-- **研究笔记**：学习心得与思考总结
-
-内容会持续更新，研究领域会不断扩展。
+{% endif %}
 
 ---
 
-*"数学是打开科学大门的钥匙"*
+## 🔬 研究领域
+
+本站的学术笔记主要涵盖以下领域：
+
+**理论数学**
+- 代数结构与抽象代数
+- 数学分析与实变函数
+- 几何学与拓扑学
+- 数论与组合数学
+
+**应用数学**
+- 计算数学与数值方法
+- 优化理论与算法设计
+- 概率统计与随机过程
+- 数学建模与仿真
+
+**交叉学科**
+- 计算机科学中的数学
+- 物理学中的数学方法
+- 工程数学应用
+- 数据科学与机器学习
+
+---
+
+## 📖 阅读指南
+
+- **基础理论**：适合数学专业学生和研究者
+- **应用实例**：包含具体的计算和代码实现
+- **个人思考**：记录学习过程中的心得体会
+- **参考文献**：提供进一步学习的资源
+
+每篇笔记都经过仔细整理，希望能为同行学者提供有价值的参考。
