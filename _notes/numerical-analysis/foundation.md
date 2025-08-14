@@ -13,4 +13,4 @@ toc_icon: "cog"
 
 ## 文档下载
 
-📄 **[下载完整PDF版本]({{ '/assets/pdfs/numerical-analysis-foundations.pdf' | relative_url }})**
+📄 **[下载完整PDF版本]({{ '/assets/pdfs/foundations.pdf' | relative_url }})**
