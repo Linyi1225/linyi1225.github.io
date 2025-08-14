@@ -44,14 +44,16 @@ kramdown:
 paginate: 5
 paginate_path: /page:num/
 
-# 集合配置 - 保持原有名称
+# 集合配置 - 支持子目录结构
 collections:
   notes:
     output: true
-    permalink: /:collection/:name/
+    permalink: /:collection/:path/
+    title: "学术笔记"
   code:
     output: true
-    permalink: /:collection/:name/
+    permalink: /:collection/:path/
+    title: "代码实现"
 
 # 作者信息
 author:
@@ -83,6 +85,9 @@ defaults:
       comments: false
       share: true
       related: true
+      toc: true
+      toc_label: "目录"
+      toc_icon: "cog"
   - scope:
       path: "_code"
       type: code
@@ -93,6 +98,7 @@ defaults:
       comments: false
       share: true
       related: true
+      classes: wide
   - scope:
       path: "_posts"
       type: posts
@@ -103,6 +109,7 @@ defaults:
       comments: false
       share: true
       related: true
+      show_date: true
   - scope:
       path: ""
       type: pages
@@ -112,6 +119,7 @@ defaults:
 
 # 搜索
 search: true
+search_full_content: true
 
 # 社交设置
 social:
@@ -124,6 +132,13 @@ social:
 # SEO
 locale: "zh-CN"
 title_separator: "-"
+
+# 数学公式支持
+mathjax:
+  enable: true
+
+# 相关文章
+related: true
 
 # 压缩
 compress_html:
@@ -140,3 +155,4 @@ exclude:
   - Gemfile.lock
   - node_modules/
   - vendor/
+  - README.md

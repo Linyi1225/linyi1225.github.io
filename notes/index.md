@@ -5,79 +5,264 @@ permalink: /notes/
 classes: wide
 ---
 
-## 📚 学术笔记集合
+# 📚 学术笔记
 
-{% if site.notes and site.notes.size > 0 %}
+这里收录我的数学研究笔记和理论探索，按专题系统化组织。
 
-<div class="grid">
-{% for note in site.notes %}
-  <div class="grid__item">
-    <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-      <h2 class="archive__item-title" itemprop="headline">
-        <a href="{{ note.url | relative_url }}" rel="permalink">{{ note.title }}</a>
-      </h2>
-      
-      {% if note.excerpt %}
-        <p class="archive__item-excerpt" itemprop="description">{{ note.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+## 🔢 数值分析系列
+
+{% assign numerical_posts = site.notes | where_exp: "post", "post.path contains 'numerical-analysis'" | sort: 'date' %}
+{% if numerical_posts.size > 0 %}
+
+<div class="entries-grid">
+{% for post in numerical_posts %}
+  <article class="entry">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    {% if post.excerpt %}
+      <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+    {% endif %}
+    <div class="entry-meta">
+      {% if post.date %}
+        <span class="entry-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
       {% endif %}
-      
-      {% if note.date %}
-        <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 日期：</strong> <time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%B %d, %Y" }}</time></p>
-      {% endif %}
-      
-      {% if note.tags and note.tags.size > 0 %}
-        <p class="page__meta">
-          <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 标签：</strong>
-          {% for tag in note.tags %}
-            <span class="page__taxonomy-item" rel="tag">{{ tag }}</span>{% unless forloop.last %}, {% endunless %}
+      {% if post.tags and post.tags.size > 0 %}
+        <div class="entry-tags">
+          {% for tag in post.tags limit: 3 %}
+            <span class="tag">{{ tag }}</span>
           {% endfor %}
-        </p>
+        </div>
       {% endif %}
-    </article>
-  </div>
+    </div>
+  </article>
 {% endfor %}
 </div>
 
 {% else %}
 
 <div class="notice--info">
-  <h4>暂无内容</h4>
-  <p>学术笔记正在整理中，敬请期待更多精彩内容...</p>
+  <h4>数值分析系列</h4>
+  <p>从实数理论出发，构建完整的数值分析理论框架</p>
+  <p><em>即将开始...</em></p>
 </div>
 
 {% endif %}
 
 ---
 
-## 🔬 研究领域
+## 📊 概率论系列
 
-本站的学术笔记主要涵盖以下领域：
+{% assign probability_posts = site.notes | where_exp: "post", "post.path contains 'probability-theory'" | sort: 'date' %}
+{% if probability_posts.size > 0 %}
 
-**理论数学**
-- 代数结构与抽象代数
-- 数学分析与实变函数
-- 几何学与拓扑学
-- 数论与组合数学
+<div class="entries-grid">
+{% for post in probability_posts %}
+  <article class="entry">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    {% if post.excerpt %}
+      <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+    {% endif %}
+    <div class="entry-meta">
+      {% if post.date %}
+        <span class="entry-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+      {% endif %}
+      {% if post.tags and post.tags.size > 0 %}
+        <div class="entry-tags">
+          {% for tag in post.tags limit: 3 %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+{% endfor %}
+</div>
 
-**应用数学**
-- 计算数学与数值方法
-- 优化理论与算法设计
-- 概率统计与随机过程
-- 数学建模与仿真
+{% else %}
 
-**交叉学科**
-- 计算机科学中的数学
-- 物理学中的数学方法
-- 工程数学应用
-- 数据科学与机器学习
+<div class="notice--info">
+  <h4>概率论系列</h4>
+  <p>概率论的严格数学基础与现代发展</p>
+  <p><em>计划中...</em></p>
+</div>
+
+{% endif %}
+
+---
+
+## 📐 线性代数系列
+
+{% assign algebra_posts = site.notes | where_exp: "post", "post.path contains 'linear-algebra'" | sort: 'date' %}
+{% if algebra_posts.size > 0 %}
+
+<div class="entries-grid">
+{% for post in algebra_posts %}
+  <article class="entry">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    {% if post.excerpt %}
+      <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+    {% endif %}
+    <div class="entry-meta">
+      {% if post.date %}
+        <span class="entry-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+      {% endif %}
+      {% if post.tags and post.tags.size > 0 %}
+        <div class="entry-tags">
+          {% for tag in post.tags limit: 3 %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+{% endfor %}
+</div>
+
+{% else %}
+
+<div class="notice--info">
+  <h4>线性代数系列</h4>
+  <p>从向量空间理论到矩阵分析的现代观点</p>
+  <p><em>未来规划...</em></p>
+</div>
+
+{% endif %}
+
+---
+
+## 📝 其他主题
+
+{% assign other_posts = site.notes | where_exp: "post", "post.path contains 'numerical-analysis' == false and post.path contains 'probability-theory' == false and post.path contains 'linear-algebra' == false" | sort: 'date' | reverse %}
+{% if other_posts.size > 0 %}
+
+<div class="entries-grid">
+{% for post in other_posts %}
+  <article class="entry">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    {% if post.excerpt %}
+      <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+    {% endif %}
+    <div class="entry-meta">
+      {% if post.date %}
+        <span class="entry-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+      {% endif %}
+      {% if post.tags and post.tags.size > 0 %}
+        <div class="entry-tags">
+          {% for tag in post.tags limit: 3 %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+{% endfor %}
+</div>
+
+{% else %}
+
+<div class="notice--secondary">
+  <h4>更多主题</h4>
+  <p>根据研究需要，会不定期添加其他数学主题的内容</p>
+</div>
+
+{% endif %}
 
 ---
 
 ## 📖 阅读指南
 
-- **基础理论**：适合数学专业学生和研究者
-- **应用实例**：包含具体的计算和代码实现
-- **个人思考**：记录学习过程中的心得体会
-- **参考文献**：提供进一步学习的资源
+### 📚 学习建议
+- **系统性学习**：建议按系列顺序阅读，每个系列内部有逻辑递进关系
+- **理论与实践**：理论分析配有相应的数值实验和代码实现
+- **深度思考**：注重概念的深层理解和数学直觉的培养
 
-每篇笔记都经过仔细整理，希望能为同行学者提供有价值的参考。
+### 🎯 内容特色
+- **严谨的数学表述**：遵循现代数学的表达规范
+- **从基础到前沿**：从基本概念到研究前沿的完整覆盖
+- **跨学科视角**：结合计算科学、工程应用等多重视角
+
+### 💬 交流反馈
+欢迎通过邮件或GitHub进行学术讨论，指正错误，提出建议。
+
+---
+
+<style>
+.entries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.entry {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.entry h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+}
+
+.entry h3 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.entry h3 a:hover {
+  color: #007bff;
+}
+
+.excerpt {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.entry-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.entry-date {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.entry-tags {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #e9ecef;
+  color: #495057;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .entries-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .entry-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
