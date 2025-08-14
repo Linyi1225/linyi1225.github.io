@@ -147,7 +147,7 @@ toc_icon: "tags"
 {% else %}
   <div class="notice--warning">
     <h4><i class="fas fa-exclamation-triangle"></i> 暂无标签</h4>
-    <p>标签会随着内容的发布自动生成。当您开始发布带有标签的文章时，它们会自动出现在这里。</p>
+   
   </div>
 {% endif %}
 
