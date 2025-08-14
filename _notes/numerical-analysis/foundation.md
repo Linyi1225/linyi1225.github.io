@@ -11,6 +11,444 @@ toc_icon: "cog"
 ---
 
 
+### 8.2 泰勒定理
+
+**定理8.1（泰勒定理）**：设 $f$ 在 $[a, b]$ 上有 $n$ 阶连续导数，在 $(a, b)$ 内有 $n+1$ 阶导数，$x_0 \in [a, b]$，则对任意 $x \in [a, b]$，存在 $\xi$ 介于 $x$ 和 $x_0$ 之间，使得：
+
+$f(x) = T_n(x; x_0) + R_n(x)$
+
+其中余项 $R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_0)^{n+1}$（拉格朗日余项）。
+
+**定理8.2（佩亚诺余项）**：若 $f$ 在 $x_0$ 处有 $n$ 阶导数，则：
+
+$f(x) = T_n(x; x_0) + o((x - x_0)^n)$
+
+### 8.3 泰勒级数
+
+**定义8.2（泰勒级数）**：若 $f$ 在 $x_0$ 处有任意阶导数，则其泰勒级数为：
+
+$\sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$
+
+**定义8.3（解析函数）**：若函数 $f$ 在点 $x_0$ 的某邻域内等于其泰勒级数，则称 $f$ 在 $x_0$ 解析。
+
+---
+
+## 第九章：误差理论
+
+### 9.1 误差的基本概念
+
+**定义9.1（绝对误差与相对误差）**：设 $x^*$ 为精确值 $x$ 的近似值。
+
+- **绝对误差**：$e = x^* - x$
+
+- **绝对误差的绝对值**：$|e| = |x^* - x|$
+
+- **相对误差**：$e_r = \frac{x^* - x}{x}$ （当 $x \neq 0$ 时）
+
+- **相对误差的绝对值**：$|e_r| = \left|\frac{x^* - x}{x}\right|$
+
+**定义9.2（误差限）**：
+
+- **绝对误差限**：若 $|x^* - x| \leq \varepsilon$，则称 $\varepsilon$ 为绝对误差限
+
+- **相对误差限**：若 $\left|\frac{x^* - x}{x}\right| \leq \delta$，则称 $\delta$ 为相对误差限
+
+### 9.2 有效数字
+
+**定义9.3（有效数字）**：若近似值 $x^*$ 的绝对误差限不超过其第 $n$ 位数字所在位的半个单位，则称 $x^*$ 有 $n$ 位有效数字。
+
+具体地，若 $x^* = \pm 0.a_1a_2\cdots a_n \times 10^m$（其中 $a_1 \neq 0$），且
+
+$|x^* - x| \leq \frac{1}{2} \times 10^{m-n}$
+
+则称 $x^*$ 有 $n$ 位有效数字。
+
+### 9.3 误差传播
+
+**定义9.4（误差传播）**：考虑函数 $y = f(x_1, x_2, \ldots, x_n)$，其中各变量 $x_i$ 都有误差 $\Delta x_i$。
+
+**线性化误差传播公式**：
+
+$\Delta y \approx \sum_{i=1}^n \frac{\partial f}{\partial x_i} \Delta x_i$
+
+**相对误差传播公式**：
+
+$\frac{\Delta y}{y} \approx \sum_{i=1}^n \frac{\partial \ln |f|}{\partial x_i} \frac{\Delta x_i}{x_i}$
+
+### 9.4 条件数
+
+**定义9.5（问题的条件数）**：对于问题 $y = f(x)$，在点 $x$ 处的（相对）条件数定义为：
+
+$\kappa(x) = \left|\frac{x f'(x)}{f(x)}\right|$
+
+**定义9.6（矩阵的条件数）**：对于可逆矩阵 $A$，其条件数定义为：
+
+$\text{cond}(A) = \|A\| \cdot \|A^{-1}\|$
+
+其中 $\|\cdot\|$ 是矩阵范数。
+
+**定义9.7（病态与良态）**：
+- 若条件数很大，称问题为**病态**的
+- 若条件数适中，称问题为**良态**的
+
+---
+
+## 第十章：收敛阶理论
+
+### 10.1 序列的收敛阶
+
+**定义10.1（收敛阶）**：设数列 $\{x_n\}$ 收敛到 $x^*$，$x_n \neq x^*$。若存在常数 $C > 0$ 和 $p \geq 1$ 使得：
+
+$\lim_{n \to \infty} \frac{|x_{n+1} - x^*|}{|x_n - x^*|^p} = C$
+
+则称数列以 $p$ 阶收敛到 $x^*$。特别地：
+- $p = 1, C < 1$：**线性收敛**
+- $p = 1, C = 0$：**超线性收敛**
+- $p = 2$：**二次收敛**
+- $p > 2$：**超二次收敛**
+
+**定义10.2（收敛速度）**：当 $p = 1$ 时，常数 $C$ 称为收敛速度或收敛因子。
+
+### 10.2 算法的收敛阶
+
+**定义10.3（算法收敛阶）**：对于产生序列 $\{x_n\}$ 收敛到 $x^*$ 的算法，若该序列以 $p$ 阶收敛，则称算法具有 $p$ 阶收敛。
+
+### 10.3 渐近表示
+
+**定义10.4（大O记号）**：设 $f, g$ 是定义在某集合上的函数。
+
+$f(x) = O(g(x))$
+
+当且仅当存在 $C > 0, x_0$，对所有 $x > x_0$：$|f(x)| \leq C|g(x)|$
+
+**定义10.5（小o记号）**：
+
+$f(x) = o(g(x))$
+
+当且仅当 $\lim_{x \to \infty} \frac{f(x)}{g(x)} = 0$
+
+**定义10.6（同阶）**：
+
+$f(x) = \Theta(g(x))$
+
+当且仅当存在 $C_1, C_2 > 0, x_0$，对所有 $x > x_0$：$C_1|g(x)| \leq |f(x)| \leq C_2|g(x)|$
+
+---
+
+## 第十一章：数值稳定性理论
+
+### 11.1 数值稳定性的定义
+
+**定义11.1（前向误差）**：设算法求解问题 $f(x) = y$，算法输出为 $\tilde{y}$，则前向误差为：
+
+$E_f = \tilde{y} - y$
+
+**定义11.2（后向误差）**：若算法输出 $\tilde{y}$ 是问题 $f(\tilde{x}) = \tilde{y}$ 的精确解，则后向误差为：
+
+$E_b = \tilde{x} - x$
+
+**定义11.3（数值稳定性）**：一个算法是数值稳定的，如果对于任何输入，都存在接近原输入的扰动输入，使得算法输出是该扰动问题的精确解。
+
+### 11.2 算法稳定性的分类
+
+**定义11.4（前向稳定）**：算法是前向稳定的，如果对所有输入 $x$：
+
+$\|\tilde{y} - y\| \leq C \varepsilon \|y\|$
+
+其中 $\varepsilon$ 是机器精度，$C$ 是适度的常数。
+
+**定义11.5（后向稳定）**：算法是后向稳定的，如果对所有输入 $x$，都存在 $\Delta x$ 使得：
+1. $\|\Delta x\| \leq C \varepsilon \|x\|$
+2. $\tilde{y} = f(x + \Delta x)$
+
+其中 $C$ 是适度的常数。
+
+---
+
+## 第十二章：内积空间理论
+
+### 12.1 内积的定义
+
+**定义12.1（内积）**：设 $V$ 是实线性空间，内积是映射 $\langle \cdot, \cdot \rangle: V \times V \to \mathbb{R}$，满足：
+1. **对称性**：$\langle x, y \rangle = \langle y, x \rangle$
+2. **第一变元线性**：$\langle \alpha x + \beta y, z \rangle = \alpha \langle x, z \rangle + \beta \langle y, z \rangle$
+3. **正定性**：$\langle x, x \rangle \geq 0$，且 $\langle x, x \rangle = 0$ 当且仅当 $x = 0$
+
+称 $(V, \langle \cdot, \cdot \rangle)$ 为内积空间。
+
+### 12.2 由内积诱导的范数
+
+**定义12.2（内积诱导的范数）**：在内积空间中，由内积诱导的范数为：
+
+$\|x\| = \sqrt{\langle x, x \rangle}$
+
+**定理12.1（Cauchy-Schwarz不等式）**：在内积空间中，
+
+$|\langle x, y \rangle| \leq \|x\| \|y\|$
+
+等号成立当且仅当 $x$ 和 $y$ 线性相关。
+
+### 12.3 正交性
+
+**定义12.3（正交）**：内积空间中的两个向量 $x, y$ 正交，记为 $x \perp y$，当且仅当 $\langle x, y \rangle = 0$。
+
+**定义12.4（正交集合与正交系）**：
+- 集合 $S$ 是正交的，若其中任意两个不同元素都正交
+- 若正交集合中每个元素的范数都为1，则称为标准正交系
+
+**定义12.5（正交补）**：设 $M \subset V$，则 $M$ 的正交补为：
+
+$M^\perp = \{x \in V : \langle x, y \rangle = 0, \text{对所有 } y \in M\}$
+
+### 12.4 正交投影
+
+**定理12.2（投影定理）**：设 $M$ 是内积空间 $V$ 的有限维子空间，则对任意 $x \in V$，存在唯一的 $P_M x \in M$ 使得：
+
+$\|x - P_M x\| = \inf_{y \in M} \|x - y\|$
+
+称 $P_M x$ 为 $x$ 在 $M$ 上的正交投影。
+
+**定理12.3（投影的性质）**：正交投影 $P_M$ 满足：
+1. $P_M$ 是线性算子
+2. $P_M^2 = P_M$（幂等性）
+3. $(x - P_M x) \perp M$
+
+### 12.5 Hilbert空间
+
+**定义12.6（Hilbert空间）**：完备的内积空间称为Hilbert空间。
+
+**定理12.4（Riesz表示定理）**：设 $H$ 是Hilbert空间，$f: H \to \mathbb{R}$ 是有界线性泛函，则存在唯一的 $y \in H$ 使得：
+
+$f(x) = \langle x, y \rangle, \quad \text{对所有 } x \in H$
+
+### 12.6 函数空间中的内积
+
+**定义12.7（$L^2$ 内积）**：在函数空间 $L^2[a, b]$ 中，内积定义为：
+
+$\langle f, g \rangle = \int_a^b f(x) g(x) dx$
+
+**定义12.8（加权内积）**：对于权函数 $w(x) > 0$，加权内积为：
+
+$\langle f, g \rangle_w = \int_a^b f(x) g(x) w(x) dx$
+
+---
+
+## 第十三章：线性空间理论
+
+### 13.1 线性空间的定义
+
+**定义13.1（线性空间）**：设 $V$ 是非空集合，$\mathbb{F}$ 是数域（通常为 $\mathbb{R}$ 或 $\mathbb{C}$）。若在 $V$ 上定义了加法运算 $+: V \times V \to V$ 和数量乘法运算 $\cdot: \mathbb{F} \times V \to V$，满足以下公理，则称 $(V, +, \cdot)$ 为 $\mathbb{F}$ 上的线性空间：
+
+**加法公理**：
+1. **结合律**：$(x + y) + z = x + (y + z)$
+2. **交换律**：$x + y = y + x$
+3. **零元存在**：存在 $0 \in V$，对所有 $x \in V$：$x + 0 = x$
+4. **负元存在**：对所有 $x \in V$，存在 $(-x) \in V$：$x + (-x) = 0$
+
+**数量乘法公理**：
+5. **分配律I**：$\alpha(x + y) = \alpha x + \alpha y$
+6. **分配律II**：$(\alpha + \beta)x = \alpha x + \beta x$
+7. **结合律**：$(\alpha \beta)x = \alpha(\beta x)$
+8. **单位元**：$1 \cdot x = x$
+
+### 13.2 线性相关与线性无关
+
+**定义13.2（线性组合）**：向量 $v_1, v_2, \ldots, v_n \in V$ 的线性组合是形如 $\alpha_1 v_1 + \alpha_2 v_2 + \cdots + \alpha_n v_n$ 的向量，其中 $\alpha_i \in \mathbb{F}$。
+
+**定义13.3（线性相关与线性无关）**：向量组 $\{v_1, v_2, \ldots, v_n\}$ 称为：
+
+- **线性相关**：存在不全为零的系数 $\alpha_1, \ldots, \alpha_n$ 使得 $\alpha_1 v_1 + \cdots + \alpha_n v_n = 0$
+
+- **线性无关**：只有当 $\alpha_1 = \cdots = \alpha_n = 0$ 时才有 $\alpha_1 v_1 + \cdots + \alpha_n v_n = 0$
+
+### 13.3 基与维数
+
+**定义13.4（张成空间）**：向量组 $S = \{v_1, v_2, \ldots, v_n\}$ 张成的空间为：
+
+$\text{span}(S) = \left\{\sum_{i=1}^n \alpha_i v_i : \alpha_i \in \mathbb{F}\right\}$
+
+**定义13.5（基）**：线性空间 $V$ 的基是 $V$ 的一个线性无关的张成集合。
+
+**定理13.1（基的存在性）**：每个有限维线性空间都有基。
+
+**定义13.6（维数）**：有限维线性空间 $V$ 的维数是其基中元素的个数，记为 $\dim V$。
+
+### 13.4 子空间
+
+**定义13.7（子空间）**：线性空间 $V$ 的非空子集 $W$ 称为子空间，若 $W$ 在 $V$ 的运算下也构成线性空间。
+
+**定理13.2（子空间判别法）**：$W \subset V$ 是子空间当且仅当：
+1. $0 \in W$
+2. 对所有 $x, y \in W, \alpha, \beta \in \mathbb{F}$：$\alpha x + \beta y \in W$
+
+### 13.5 线性映射
+
+**定义13.8（线性映射）**：设 $V, W$ 是线性空间，映射 $T: V \to W$ 称为线性映射，若：
+
+$T(\alpha x + \beta y) = \alpha T(x) + \beta T(y), \quad \text{对所有 } x, y \in V, \alpha, \beta \in \mathbb{F}$
+
+**定义13.9（核与像）**：线性映射 $T: V \to W$ 的：
+
+- **核**：$\ker T = \{x \in V : T(x) = 0\}$
+
+- **像**：$\text{Im} T = \{T(x) : x \in V\}$
+
+**定理13.3（线性映射基本定理）**：$\dim V = \dim \ker T + \dim \text{Im} T$
+
+---
+
+## 第十四章：迭代法的一般理论
+
+### 14.1 不动点与压缩映射
+
+**定义14.1（不动点）**：设 $T: D \to D$ 是映射，若 $x^* \in D$ 满足 $T(x^*) = x^*$，则称 $x^*$ 为 $T$ 的不动点。
+
+**定义14.2（压缩映射）**：设 $(X, d)$ 是度量空间，映射 $T: X \to X$ 称为压缩映射，若存在常数 $0 < L < 1$ 使得：
+
+$d(T(x), T(y)) \leq L \cdot d(x, y), \quad \text{对所有 } x, y \in X$
+
+**定理14.1（Banach不动点定理）**：完备度量空间中的压缩映射有唯一不动点，且对任意初值的迭代序列都收敛到该不动点。
+
+### 14.2 迭代法的收敛性
+
+**定义14.3（一般迭代法）**：
+
+$x_{n+1} = T(x_n), \quad n = 0, 1, 2, \ldots$
+
+**定理14.2（局部收敛定理）**：设 $T$ 在不动点 $x^*$ 的邻域内可微，且 $|T'(x^*)| < 1$，则存在 $x^*$ 的邻域，使得该邻域内任意初值的迭代都收敛到 $x^*$。
+
+---
+
+## 第十五章：范数理论
+
+### 15.1 向量范数
+
+**定义15.1（向量范数）**：$\mathbb{R}^n$ 上的范数是函数 $\|\cdot\|: \mathbb{R}^n \to \mathbb{R}_+$，满足：
+1. **正定性**：$\|x\| \geq 0$，且 $\|x\| = 0$ 当且仅当 $x = 0$
+2. **齐次性**：$\|\alpha x\| = |\alpha| \|x\|$，对所有 $\alpha \in \mathbb{R}$
+3. **三角不等式**：$\|x + y\| \leq \|x\| + \|y\|$
+
+**常用向量范数**：
+
+- **1-范数**：$\|x\|_1 = \sum_{i=1}^n |x_i|$
+
+- **2-范数**：$\|x\|_2 = \sqrt{\sum_{i=1}^n x_i^2}$
+
+- **$\infty$-范数**：$\|x\|_\infty = \max_{1 \leq i \leq n} |x_i|$
+
+### 15.2 矩阵范数
+
+**定义15.2（矩阵范数）**：$\mathbb{R}^{n \times n}$ 上的范数是函数 $\|\cdot\|: \mathbb{R}^{n \times n} \to \mathbb{R}_+$，满足范数的三个基本性质，以及：
+
+4. **相容性**：$\|AB\| \leq \|A\| \|B\|$
+
+**定义15.3（算子范数）**：由向量范数诱导的矩阵范数：
+
+$\|A\| = \sup_{x \neq 0} \frac{\|Ax\|}{\|x\|} = \sup_{\|x\| = 1} \|Ax\|$
+
+**常用矩阵范数**：
+
+- **1-范数**：$\|A\|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^n |a_{ij}|$（列和的最大值）
+
+- **$\infty$-范数**：$\|A\|_\infty = \max_{1 \leq i \leq n} \sum_{j=1}^n |a_{ij}|$（行和的最大值）
+
+- **2-范数**：$\|A\|_2 = \sqrt{\rho(A^T A)}$（最大奇异值）
+
+### 15.3 谱半径
+
+**定义15.4（谱半径）**：矩阵 $A$ 的谱半径定义为：
+
+$\rho(A) = \max_{1 \leq i \leq n} |\lambda_i|$
+
+其中 $\lambda_i$ 是 $A$ 的特征值。
+
+**定理15.1**：对任意矩阵范数，有 $\rho(A) \leq \|A\|$。
+
+**定理15.2**：$\rho(A) = \inf \{\|A\| : \|\cdot\| \text{ 是矩阵范数}\}$。
+
+---
+
+## 第十六章：逼近论基础
+
+### 16.1 最佳逼近
+
+**定义16.1（最佳逼近元）**：设 $(X, \|\cdot\|)$ 是赋范线性空间，$f \in X$，$Y \subset X$ 是子空间。若 $g^* \in Y$ 满足：
+
+$\|f - g^*\| = \inf_{g \in Y} \|f - g\| = d(f, Y)$
+
+则称 $g^*$ 为 $f$ 在 $Y$ 中的最佳逼近元。
+
+**定义16.2（逼近误差）**：$d(f, Y) = \inf_{g \in Y} \|f - g\|$ 称为 $f$ 到子空间 $Y$ 的距离或逼近误差。
+
+### 16.2 线性逼近
+
+**定义16.3（线性泛函）**：设 $Y$ 是 $n$ 维子空间，$\{g_1, g_2, \ldots, g_n\}$ 是 $Y$ 的基。线性逼近的形式为：
+
+$L_n(f) = \sum_{i=1}^n c_i g_i$
+
+**定义16.4（线性算子的范数）**：线性算子 $L: X \to Y$ 的范数定义为：
+
+$\|L\| = \sup_{\|f\|_X = 1} \|L(f)\|_Y$
+
+### 16.3 Weierstrass逼近定理
+
+**定理16.1（Weierstrass第一定理）**：闭区间上的连续函数可以用多项式一致逼近。
+
+**定理16.2（Weierstrass第二定理）**：$[0, 2\pi]$ 上的连续周期函数可以用三角多项式一致逼近。
+
+### 16.4 最佳逼近的特征
+
+**定理16.3（最佳逼近的唯一性）**：在严格凸的赋范空间中，最佳逼近元是唯一的。
+
+**定理16.4（Kolmogorov定理）**：设 $X$ 是赋范空间，$Y$ 是 $X$ 的有限维子空间，$f \in X$，$g^* \in Y$。则 $g^*$ 是 $f$ 的最佳逼近当且仅当不存在 $h \in Y$ 使得 $\|f - g^* + th\| < \|f - g^*\|$ 对所有充分小的 $t > 0$ 成立。
+
+---
+
+## 第十七章：泛函分析基础
+
+### 17.1 赋范空间
+
+**定义17.1（赋范空间）**：设 $X$ 是线性空间，$\|\cdot\|: X \to \mathbb{R}_+$ 是范数，则称 $(X, \|\cdot\|)$ 为赋范空间。
+
+**定义17.2（Banach空间）**：完备的赋范空间称为Banach空间。
+
+### 17.2 有界线性算子
+
+**定义17.3（有界线性算子）**：设 $X, Y$ 是赋范空间，线性算子 $T: X \to Y$ 称为有界的，若存在常数 $M > 0$ 使得：
+
+$\|T x\|_Y \leq M \|x\|_X, \quad \text{对所有 } x \in X$
+
+**定理17.1**：线性算子 $T$ 有界当且仅当 $T$ 连续。
+
+**定义17.4（算子范数）**：有界线性算子 $T: X \to Y$ 的范数定义为：
+
+$\|T\| = \sup_{\|x\|_X \leq 1} \|T x\|_Y = \sup_{\|x\|_X = 1} \|T x\|_Y = \sup_{x \neq 0} \frac{\|T x\|_Y}{\|x\|_X}$
+
+### 17.3 对偶空间
+
+**定义17.5（对偶空间）**：赋范空间 $X$ 的对偶空间 $X^*$ 是所有有界线性泛函 $f: X \to \mathbb{R}$ 构成的空间。
+
+**定理17.2（Riesz表示定理的推广）**：在Hilbert空间中，每个有界线性泛函都可以表示为内积的形式。
+
+### 17.4 紧算子
+
+**定义17.6（紧算子）**：设 $X, Y$ 是赋范空间，线性算子 $T: X \to Y$ 称为紧的，---
+title: "从实数公理到数值分析：核心概念的严格建构"
+date: 2024-12-19
+tags: [实数理论, 函数分析, 误差理论, 数值方法, 泛函分析]
+excerpt: "从实数公理出发，严格定义和建立数值分析所需的所有核心数学概念，构建完整的理论体系"
+layout: single
+classes: wide
+toc: true
+toc_label: "目录"
+toc_icon: "cog"
+mathjax: true
+author_profile: true
+read_time: true
+share: true
+related: true
+---
+
 # 从实数公理到数值分析：核心概念的严格建构
 
 ## 引言
@@ -28,27 +466,38 @@ toc_icon: "cog"
 #### 域公理
 
 **加法公理**：
-- **A1（结合律）**：$\forall a, b, c \in \mathbb{R}: (a + b) + c = a + (b + c)$
-- **A2（交换律）**：$\forall a, b \in \mathbb{R}: a + b = b + a$
-- **A3（单位元）**：$\exists 0 \in \mathbb{R}, \forall a \in \mathbb{R}: a + 0 = a$
-- **A4（逆元）**：$\forall a \in \mathbb{R}, \exists (-a) \in \mathbb{R}: a + (-a) = 0$
+
+- **A1（结合律）**：对所有 $a, b, c \in \mathbb{R}$：$(a + b) + c = a + (b + c)$
+
+- **A2（交换律）**：对所有 $a, b \in \mathbb{R}$：$a + b = b + a$
+
+- **A3（单位元）**：存在 $0 \in \mathbb{R}$，对所有 $a \in \mathbb{R}$：$a + 0 = a$
+
+- **A4（逆元）**：对所有 $a \in \mathbb{R}$，存在 $(-a) \in \mathbb{R}$：$a + (-a) = 0$
 
 **乘法公理**：
-- **M1（结合律）**：$\forall a, b, c \in \mathbb{R}: (a \cdot b) \cdot c = a \cdot (b \cdot c)$
-- **M2（交换律）**：$\forall a, b \in \mathbb{R}: a \cdot b = b \cdot a$
-- **M3（单位元）**：$\exists 1 \in \mathbb{R}, 1 \neq 0, \forall a \in \mathbb{R}: a \cdot 1 = a$
-- **M4（逆元）**：$\forall a \in \mathbb{R}, a \neq 0, \exists a^{-1} \in \mathbb{R}: a \cdot a^{-1} = 1$
+
+- **M1（结合律）**：对所有 $a, b, c \in \mathbb{R}$：$(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+
+- **M2（交换律）**：对所有 $a, b \in \mathbb{R}$：$a \cdot b = b \cdot a$
+
+- **M3（单位元）**：存在 $1 \in \mathbb{R}, 1 \neq 0$，对所有 $a \in \mathbb{R}$：$a \cdot 1 = a$
+
+- **M4（逆元）**：对所有 $a \in \mathbb{R}, a \neq 0$，存在 $a^{-1} \in \mathbb{R}$：$a \cdot a^{-1} = 1$
 
 **分配律**：
-- **D**：$\forall a, b, c \in \mathbb{R}: a \cdot (b + c) = a \cdot b + a \cdot c$
+
+- **D**：对所有 $a, b, c \in \mathbb{R}$：$a \cdot (b + c) = a \cdot b + a \cdot c$
 
 #### 序公理
 
 设 $P \subset \mathbb{R}$ 为正实数集合，满足：
-- **O1（封闭性）**：$a, b \in P \Rightarrow a + b \in P \wedge a \cdot b \in P$
-- **O2（三分性）**：$\forall a \in \mathbb{R}$，恰好下列之一成立：$a \in P$，$a = 0$，$-a \in P$
 
-由此定义序关系：$a < b \Leftrightarrow b - a \in P$
+- **O1（封闭性）**：$a, b \in P$ 蕴含 $a + b \in P$ 且 $a \cdot b \in P$
+
+- **O2（三分性）**：对所有 $a \in \mathbb{R}$，恰好下列之一成立：$a \in P$，$a = 0$，$-a \in P$
+
+由此定义序关系：$a < b$ 当且仅当 $b - a \in P$
 
 #### 完备性公理
 
@@ -57,28 +506,33 @@ toc_icon: "cog"
 ### 1.2 上确界与下确界
 
 **定义1.1（界的概念）**：设 $S \subset \mathbb{R}$ 为非空集合。
-- **上界**：若 $\exists M \in \mathbb{R}$ 使得 $\forall x \in S: x \leq M$，则称 $M$ 为 $S$ 的上界
-- **下界**：若 $\exists m \in \mathbb{R}$ 使得 $\forall x \in S: x \geq m$，则称 $m$ 为 $S$ 的下界
+
+- **上界**：若存在 $M \in \mathbb{R}$ 使得对所有 $x \in S$：$x \leq M$，则称 $M$ 为 $S$ 的上界
+
+- **下界**：若存在 $m \in \mathbb{R}$ 使得对所有 $x \in S$：$x \geq m$，则称 $m$ 为 $S$ 的下界
+
 - **有界**：若 $S$ 既有上界又有下界，则称 $S$ 有界
 
 **定义1.2（确界）**：设 $S \subset \mathbb{R}$ 为非空有上界集合。
+
 - **上确界**：$\sup S$ 是满足以下条件的实数：
   1. $\sup S$ 是 $S$ 的上界
   2. 若 $M$ 是 $S$ 的任一上界，则 $\sup S \leq M$
+
 - **下确界**：$\inf S$ 是满足以下条件的实数：
   1. $\inf S$ 是 $S$ 的下界
   2. 若 $m$ 是 $S$ 的任一下界，则 $\inf S \geq m$
 
 **定理1.1（上确界的等价刻画）**：$\alpha = \sup S$ 当且仅当：
-1. $\forall x \in S: x \leq \alpha$
-2. $\forall \varepsilon > 0, \exists x \in S: x > \alpha - \varepsilon$
+1. 对所有 $x \in S$：$x \leq \alpha$
+2. 对所有 $\varepsilon > 0$，存在 $x \in S$：$x > \alpha - \varepsilon$
 
 ### 1.3 戴德金分割
 
 **定义1.3（戴德金分割）**：有理数集 $\mathbb{Q}$ 的戴德金分割是有序对 $(A, B)$，满足：
 1. $A, B \subset \mathbb{Q}$，$A \neq \emptyset$，$B \neq \emptyset$
 2. $A \cup B = \mathbb{Q}$，$A \cap B = \emptyset$
-3. $\forall a \in A, \forall b \in B: a < b$
+3. 对所有 $a \in A, b \in B$：$a < b$
 4. $A$ 没有最大元素
 
 **定理1.2（戴德金定理）**：每个戴德金分割都唯一确定一个实数。
@@ -100,7 +554,9 @@ toc_icon: "cog"
 ### 2.1 序列的定义
 
 **定义2.1（数列）**：实数列是从自然数集到实数集的函数：
-$$a: \mathbb{N} \to \mathbb{R}, \quad n \mapsto a_n$$
+
+$a: \mathbb{N} \to \mathbb{R}, \quad n \mapsto a_n$
+
 记为 $\{a_n\}_{n=1}^{\infty}$ 或 $\{a_n\}$。
 
 **定义2.2（子列）**：设 $\{a_n\}$ 是数列，$\{n_k\}_{k=1}^{\infty}$ 是严格递增的自然数列，则 $\{a_{n_k}\}_{k=1}^{\infty}$ 称为 $\{a_n\}$ 的子列。
@@ -108,36 +564,47 @@ $$a: \mathbb{N} \to \mathbb{R}, \quad n \mapsto a_n$$
 ### 2.2 序列的收敛性
 
 **定义2.3（收敛）**：数列 $\{a_n\}$ 收敛到实数 $L$，记为 $\lim_{n \to \infty} a_n = L$，当且仅当：
-$$\forall \varepsilon > 0, \exists N \in \mathbb{N}, \forall n \geq N: |a_n - L| < \varepsilon$$
+
+$\text{对所有 } \varepsilon > 0, \text{ 存在 } N \in \mathbb{N}, \text{ 对所有 } n \geq N: |a_n - L| < \varepsilon$
 
 **定义2.4（发散）**：若数列不收敛，则称其发散。
 
 **定义2.5（有界数列）**：
-- 数列 $\{a_n\}$ **有上界**：$\exists M \in \mathbb{R}, \forall n \in \mathbb{N}: a_n \leq M$
-- 数列 $\{a_n\}$ **有下界**：$\exists m \in \mathbb{R}, \forall n \in \mathbb{N}: a_n \geq m$
-- 数列 $\{a_n\}$ **有界**：$\exists M > 0, \forall n \in \mathbb{N}: |a_n| \leq M$
+
+- 数列 $\{a_n\}$ **有上界**：存在 $M \in \mathbb{R}$，对所有 $n \in \mathbb{N}$：$a_n \leq M$
+
+- 数列 $\{a_n\}$ **有下界**：存在 $m \in \mathbb{R}$，对所有 $n \in \mathbb{N}$：$a_n \geq m$
+
+- 数列 $\{a_n\}$ **有界**：存在 $M > 0$，对所有 $n \in \mathbb{N}$：$|a_n| \leq M$
 
 ### 2.3 柯西序列
 
 **定义2.6（柯西序列）**：数列 $\{a_n\}$ 是柯西序列，当且仅当：
-$$\forall \varepsilon > 0, \exists N \in \mathbb{N}, \forall m, n \geq N: |a_m - a_n| < \varepsilon$$
+
+$\text{对所有 } \varepsilon > 0, \text{ 存在 } N \in \mathbb{N}, \text{ 对所有 } m, n \geq N: |a_m - a_n| < \varepsilon$
 
 **定理2.1（柯西收敛准则）**：实数列收敛当且仅当它是柯西序列。
 
 ### 2.4 单调序列
 
 **定义2.7（单调性）**：
-- **单调递增**：$\forall n \in \mathbb{N}: a_n \leq a_{n+1}$
-- **严格单调递增**：$\forall n \in \mathbb{N}: a_n < a_{n+1}$
-- **单调递减**：$\forall n \in \mathbb{N}: a_n \geq a_{n+1}$
-- **严格单调递减**：$\forall n \in \mathbb{N}: a_n > a_{n+1}$
+
+- **单调递增**：对所有 $n \in \mathbb{N}$：$a_n \leq a_{n+1}$
+
+- **严格单调递增**：对所有 $n \in \mathbb{N}$：$a_n < a_{n+1}$
+
+- **单调递减**：对所有 $n \in \mathbb{N}$：$a_n \geq a_{n+1}$
+
+- **严格单调递减**：对所有 $n \in \mathbb{N}$：$a_n > a_{n+1}$
 
 **定理2.2（单调有界定理）**：单调有界数列必收敛。
 
 ### 2.5 上极限与下极限
 
 **定义2.8（上极限与下极限）**：设 $\{a_n\}$ 为有界数列。
+
 - **上极限**：$\limsup_{n \to \infty} a_n = \lim_{n \to \infty} \sup_{k \geq n} a_k$
+
 - **下极限**：$\liminf_{n \to \infty} a_n = \lim_{n \to \infty} \inf_{k \geq n} a_k$
 
 **定理2.3**：数列收敛当且仅当其上极限等于下极限。
@@ -157,23 +624,34 @@ $$\forall \varepsilon > 0, \exists N \in \mathbb{N}, \forall m, n \geq N: |a_m -
 ### 3.2 函数的性质
 
 **定义3.2（单调性）**：设 $f: D \to \mathbb{R}$，$I \subset D$ 为区间。
-- **单调递增**：$\forall x_1, x_2 \in I, x_1 < x_2 \Rightarrow f(x_1) \leq f(x_2)$
-- **严格单调递增**：$\forall x_1, x_2 \in I, x_1 < x_2 \Rightarrow f(x_1) < f(x_2)$
-- **单调递减**：$\forall x_1, x_2 \in I, x_1 < x_2 \Rightarrow f(x_1) \geq f(x_2)$
-- **严格单调递减**：$\forall x_1, x_2 \in I, x_1 < x_2 \Rightarrow f(x_1) > f(x_2)$
+
+- **单调递增**：对所有 $x_1, x_2 \in I, x_1 < x_2$ 蕴含 $f(x_1) \leq f(x_2)$
+
+- **严格单调递增**：对所有 $x_1, x_2 \in I, x_1 < x_2$ 蕴含 $f(x_1) < f(x_2)$
+
+- **单调递减**：对所有 $x_1, x_2 \in I, x_1 < x_2$ 蕴含 $f(x_1) \geq f(x_2)$
+
+- **严格单调递减**：对所有 $x_1, x_2 \in I, x_1 < x_2$ 蕴含 $f(x_1) > f(x_2)$
 
 **定义3.3（有界性）**：设 $f: D \to \mathbb{R}$。
-- **有上界**：$\exists M \in \mathbb{R}, \forall x \in D: f(x) \leq M$
-- **有下界**：$\exists m \in \mathbb{R}, \forall x \in D: f(x) \geq m$
-- **有界**：$\exists M > 0, \forall x \in D: |f(x)| \leq M$
+
+- **有上界**：存在 $M \in \mathbb{R}$，对所有 $x \in D$：$f(x) \leq M$
+
+- **有下界**：存在 $m \in \mathbb{R}$，对所有 $x \in D$：$f(x) \geq m$
+
+- **有界**：存在 $M > 0$，对所有 $x \in D$：$|f(x)| \leq M$
 
 **定义3.4（周期性）**：函数 $f$ 是周期函数，若存在 $T > 0$ 使得：
-$$\forall x \in \text{dom}(f): f(x + T) = f(x)$$
+
+$\text{对所有 } x \in \text{dom}(f): f(x + T) = f(x)$
+
 最小的这样的 $T$ 称为基本周期。
 
 **定义3.5（奇偶性）**：设 $f$ 的定义域关于原点对称。
-- **偶函数**：$\forall x \in \text{dom}(f): f(-x) = f(x)$
-- **奇函数**：$\forall x \in \text{dom}(f): f(-x) = -f(x)$
+
+- **偶函数**：对所有 $x \in \text{dom}(f)$：$f(-x) = f(x)$
+
+- **奇函数**：对所有 $x \in \text{dom}(f)$：$f(-x) = -f(x)$
 
 ---
 
@@ -182,25 +660,34 @@ $$\forall x \in \text{dom}(f): f(x + T) = f(x)$$
 ### 4.1 函数极限的定义
 
 **定义4.1（函数在点处的极限）**：设 $f$ 在点 $x_0$ 的某去心邻域内有定义。称 $f$ 在 $x_0$ 处的极限为 $L$，记为 $\lim_{x \to x_0} f(x) = L$，当且仅当：
-$$\forall \varepsilon > 0, \exists \delta > 0, \forall x \in \text{dom}(f): 0 < |x - x_0| < \delta \Rightarrow |f(x) - L| < \varepsilon$$
+
+$\text{对所有 } \varepsilon > 0, \text{ 存在 } \delta > 0, \text{ 对所有 } x \in \text{dom}(f): 0 < |x - x_0| < \delta \text{ 蕴含 } |f(x) - L| < \varepsilon$
 
 **定义4.2（单侧极限）**：
-- **右极限**：$\lim_{x \to x_0^+} f(x) = L \Leftrightarrow \forall \varepsilon > 0, \exists \delta > 0, \forall x: x_0 < x < x_0 + \delta \Rightarrow |f(x) - L| < \varepsilon$
-- **左极限**：$\lim_{x \to x_0^-} f(x) = L \Leftrightarrow \forall \varepsilon > 0, \exists \delta > 0, \forall x: x_0 - \delta < x < x_0 \Rightarrow |f(x) - L| < \varepsilon$
+
+- **右极限**：$\lim_{x \to x_0^+} f(x) = L$ 当且仅当对所有 $\varepsilon > 0$，存在 $\delta > 0$，对所有 $x$：$x_0 < x < x_0 + \delta$ 蕴含 $|f(x) - L| < \varepsilon$
+
+- **左极限**：$\lim_{x \to x_0^-} f(x) = L$ 当且仅当对所有 $\varepsilon > 0$，存在 $\delta > 0$，对所有 $x$：$x_0 - \delta < x < x_0$ 蕴含 $|f(x) - L| < \varepsilon$
 
 **定理4.1**：$\lim_{x \to x_0} f(x) = L$ 当且仅当 $\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x) = L$。
 
 ### 4.2 无穷远处的极限
 
 **定义4.3（无穷远处的极限）**：
-- $\lim_{x \to +\infty} f(x) = L \Leftrightarrow \forall \varepsilon > 0, \exists X > 0, \forall x > X: |f(x) - L| < \varepsilon$
-- $\lim_{x \to -\infty} f(x) = L \Leftrightarrow \forall \varepsilon > 0, \exists X > 0, \forall x < -X: |f(x) - L| < \varepsilon$
-- $\lim_{x \to \infty} f(x) = L \Leftrightarrow \lim_{x \to +\infty} f(x) = \lim_{x \to -\infty} f(x) = L$
+
+- $\lim_{x \to +\infty} f(x) = L$ 当且仅当对所有 $\varepsilon > 0$，存在 $X > 0$，对所有 $x > X$：$|f(x) - L| < \varepsilon$
+
+- $\lim_{x \to -\infty} f(x) = L$ 当且仅当对所有 $\varepsilon > 0$，存在 $X > 0$，对所有 $x < -X$：$|f(x) - L| < \varepsilon$
+
+- $\lim_{x \to \infty} f(x) = L$ 当且仅当 $\lim_{x \to +\infty} f(x) = \lim_{x \to -\infty} f(x) = L$
 
 ### 4.3 无穷极限
 
 **定义4.4（无穷极限）**：
-$$\lim_{x \to x_0} f(x) = +\infty \Leftrightarrow \forall M > 0, \exists \delta > 0, \forall x: 0 < |x - x_0| < \delta \Rightarrow f(x) > M$$
+
+$\lim_{x \to x_0} f(x) = +\infty$
+
+当且仅当对所有 $M > 0$，存在 $\delta > 0$，对所有 $x$：$0 < |x - x_0| < \delta$ 蕴含 $f(x) > M$
 
 类似可定义 $\lim_{x \to x_0} f(x) = -\infty$。
 
@@ -215,30 +702,38 @@ $$\lim_{x \to x_0} f(x) = +\infty \Leftrightarrow \forall M > 0, \exists \delta 
 ### 5.1 连续性的定义
 
 **定义5.1（点处连续）**：设 $f$ 在点 $x_0$ 及其某邻域内有定义。称 $f$ 在 $x_0$ 处连续，当且仅当：
-$$\lim_{x \to x_0} f(x) = f(x_0)$$
+
+$\lim_{x \to x_0} f(x) = f(x_0)$
 
 等价地：
-$$\forall \varepsilon > 0, \exists \delta > 0, \forall x \in \text{dom}(f): |x - x_0| < \delta \Rightarrow |f(x) - f(x_0)| < \varepsilon$$
+
+$\text{对所有 } \varepsilon > 0, \text{ 存在 } \delta > 0, \text{ 对所有 } x \in \text{dom}(f): |x - x_0| < \delta \text{ 蕴含 } |f(x) - f(x_0)| < \varepsilon$
 
 **定义5.2（单侧连续）**：
+
 - **右连续**：$\lim_{x \to x_0^+} f(x) = f(x_0)$
+
 - **左连续**：$\lim_{x \to x_0^-} f(x) = f(x_0)$
 
 **定义5.3（区间上连续）**：
+
 - $f$ 在开区间 $(a, b)$ 上连续：$f$ 在 $(a, b)$ 内每点都连续
+
 - $f$ 在闭区间 $[a, b]$ 上连续：$f$ 在 $(a, b)$ 内连续，在 $a$ 右连续，在 $b$ 左连续
 
 ### 5.2 连续函数类
 
 **定义5.4（连续函数类）**：
-$$C(I) = \{f : I \to \mathbb{R} \mid f \text{ 在 } I \text{ 上连续}\}$$
+
+$C(I) = \{f : I \to \mathbb{R} \mid f \text{ 在 } I \text{ 上连续}\}$
 
 其中 $I$ 是区间。
 
 ### 5.3 一致连续性
 
 **定义5.5（一致连续）**：函数 $f$ 在集合 $D$ 上一致连续，当且仅当：
-$$\forall \varepsilon > 0, \exists \delta > 0, \forall x_1, x_2 \in D: |x_1 - x_2| < \delta \Rightarrow |f(x_1) - f(x_2)| < \varepsilon$$
+
+$\text{对所有 } \varepsilon > 0, \text{ 存在 } \delta > 0, \text{ 对所有 } x_1, x_2 \in D: |x_1 - x_2| < \delta \text{ 蕴含 } |f(x_1) - f(x_2)| < \varepsilon$
 
 **定理5.1（Cantor定理）**：闭区间上的连续函数必一致连续。
 
@@ -259,14 +754,19 @@ $$\forall \varepsilon > 0, \exists \delta > 0, \forall x_1, x_2 \in D: |x_1 - x_
 ### 6.1 导数的定义
 
 **定义6.1（导数）**：设函数 $f$ 在点 $x_0$ 的某邻域内有定义。若极限
-$$\lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$$
+
+$\lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$
+
 存在，则称 $f$ 在点 $x_0$ 可导，该极限值称为 $f$ 在 $x_0$ 的导数，记为 $f'(x_0)$。
 
 **等价定义**：
-$$f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$$
+
+$f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$
 
 **定义6.2（单侧导数）**：
+
 - **右导数**：$f'_+(x_0) = \lim_{h \to 0^+} \frac{f(x_0 + h) - f(x_0)}{h}$
+
 - **左导数**：$f'_-(x_0) = \lim_{h \to 0^-} \frac{f(x_0 + h) - f(x_0)}{h}$
 
 **定理6.1**：$f$ 在 $x_0$ 可导当且仅当左导数和右导数都存在且相等。
@@ -276,14 +776,19 @@ $$f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$$
 **定义6.3（高阶导数）**：设 $f$ 在区间 $I$ 上可导。若 $f'$ 在某点 $x_0 \in I$ 可导，则称 $f$ 在 $x_0$ 二阶可导，$(f')'(x_0)$ 称为 $f$ 在 $x_0$ 的二阶导数，记为 $f''(x_0)$。
 
 一般地，$f$ 的 $n$ 阶导数定义为：
-$$f^{(n)}(x) = \frac{d}{dx}[f^{(n-1)}(x)]$$
+
+$f^{(n)}(x) = \frac{d}{dx}[f^{(n-1)}(x)]$
 
 ### 6.3 可微函数类
 
 **定义6.4（$C^n$ 函数类）**：
+
 - $C^0(I) = C(I)$：连续函数类
+
 - $C^1(I) = \{f : I \to \mathbb{R} \mid f' \text{ 存在且连续}\}$
+
 - $C^n(I) = \{f : I \to \mathbb{R} \mid f^{(k)} \text{ 存在且连续，} k = 0, 1, \ldots, n\}$
+
 - $C^\infty(I) = \bigcap_{n=0}^\infty C^n(I)$：无穷次可微函数类
 
 ### 6.4 可导性与连续性
@@ -316,17 +821,19 @@ $$f^{(n)}(x) = \frac{d}{dx}[f^{(n-1)}(x)]$$
 2. $f$ 在 $(a, b)$ 内可导
 
 则存在 $\xi \in (a, b)$ 使得：
-$$f'(\xi) = \frac{f(b) - f(a)}{b - a}$$
+
+$f'(\xi) = \frac{f(b) - f(a)}{b - a}$
 
 ### 7.4 柯西中值定理
 
 **定理7.3（柯西中值定理）**：设函数 $f, g$ 满足：
 1. $f, g$ 在 $[a, b]$ 上连续
 2. $f, g$ 在 $(a, b)$ 内可导
-3. $\forall x \in (a, b): g'(x) \neq 0$
+3. 对所有 $x \in (a, b)$：$g'(x) \neq 0$
 
 则存在 $\xi \in (a, b)$ 使得：
-$$\frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)}$$
+
+$\frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)}$
 
 ### 7.5 洛必达法则
 
@@ -335,7 +842,8 @@ $$\frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)}$$
 2. $\lim_{x \to a} \frac{f'(x)}{g'(x)}$ 存在（或为无穷）
 
 则：
-$$\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}$$
+
+$\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}$
 
 ---
 
@@ -344,24 +852,453 @@ $$\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}$$
 ### 8.1 泰勒多项式
 
 **定义8.1（泰勒多项式）**：设 $f$ 在 $x_0$ 处有 $n$ 阶导数，则 $f$ 在 $x_0$ 处的 $n$ 次泰勒多项式为：
-$$T_n(x; x_0) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$$
+
+$T_n(x; x_0) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$
 
 特别地，当 $x_0 = 0$ 时称为麦克劳林多项式。
+
+### 8.2 ---
+title: "从实数公理到数值分析：核心概念的严格建构"
+date: 2024-12-19
+tags: [实数理论, 函数分析, 误差理论, 数值方法, 泛函分析]
+excerpt: "从实数公理出发，严格定义和建立数值分析所需的所有核心数学概念，构建完整的理论体系"
+layout: single
+classes: wide
+toc: true
+toc_label: "目录"
+toc_icon: "cog"
+mathjax: true
+author_profile: true
+read_time: true
+share: true
+related: true
+---
+
+# 从实数公理到数值分析：核心概念的严格建构
+
+## 引言
+
+本文档从实数公理出发，严格定义和建立数值分析所需的所有核心数学概念。我们将逐步构建从实数理论到函数分析，再到误差理论的完整概念体系，为后续的数值方法研究奠定坚实的理论基础。
+
+---
+
+## 第一章：实数系统的公理化基础
+
+### 1.1 实数公理体系
+
+实数系统 $$(R, +, \cdot, \leq)$$ 是满足以下公理的完备全序域：
+
+#### 域公理
+
+**加法公理**：
+
+- **A1（结合律）**：对所有 $$a, b, c \in R$$：$$(a + b) + c = a + (b + c)$$
+
+- **A2（交换律）**：对所有 $$a, b \in R$$：$$a + b = b + a$$
+
+- **A3（单位元）**：存在 $$0 \in R$$，对所有 $$a \in R$$：$$a + 0 = a$$
+
+- **A4（逆元）**：对所有 $$a \in R$$，存在 $$(-a) \in R$$：$$a + (-a) = 0$$
+
+**乘法公理**：
+
+- **M1（结合律）**：对所有 $$a, b, c \in R$$：$$(a \cdot b) \cdot c = a \cdot (b \cdot c)$$
+
+- **M2（交换律）**：对所有 $$a, b \in R$$：$$a \cdot b = b \cdot a$$
+
+- **M3（单位元）**：存在 $$1 \in R, 1 \neq 0$$，对所有 $$a \in R$$：$$a \cdot 1 = a$$
+
+- **M4（逆元）**：对所有 $$a \in R, a \neq 0$$，存在 $$a^{-1} \in R$$：$$a \cdot a^{-1} = 1$$
+
+**分配律**：
+
+- **D**：对所有 $$a, b, c \in R$$：$$a \cdot (b + c) = a \cdot b + a \cdot c$$
+
+#### 序公理
+
+设 $$P \subset R$$ 为正实数集合，满足：
+
+- **O1（封闭性）**：$$a, b \in P$$ 蕴含 $$a + b \in P$$ 且 $$a \cdot b \in P$$
+
+- **O2（三分性）**：对所有 $$a \in R$$，恰好下列之一成立：$$a \in P$$，$$a = 0$$，$$-a \in P$$
+
+由此定义序关系：$$a < b$$ 当且仅当 $$b - a \in P$$
+
+#### 完备性公理
+
+**上确界公理**：每个有上界的非空实数子集都有上确界。
+
+### 1.2 上确界与下确界
+
+**定义1.1（界的概念）**：设 $$S \subset R$$ 为非空集合。
+
+- **上界**：若存在 $$M \in R$$ 使得对所有 $$x \in S$$：$$x \leq M$$，则称 $$M$$ 为 $$S$$ 的上界
+
+- **下界**：若存在 $$m \in R$$ 使得对所有 $$x \in S$$：$$x \geq m$$，则称 $$m$$ 为 $$S$$ 的下界
+
+- **有界**：若 $$S$$ 既有上界又有下界，则称 $$S$$ 有界
+
+**定义1.2（确界）**：设 $$S \subset R$$ 为非空有上界集合。
+
+- **上确界**：$$\sup S$$ 是满足以下条件的实数：
+  1. $$\sup S$$ 是 $$S$$ 的上界
+  2. 若 $$M$$ 是 $$S$$ 的任一上界，则 $$\sup S \leq M$$
+
+- **下确界**：$$\inf S$$ 是满足以下条件的实数：
+  1. $$\inf S$$ 是 $$S$$ 的下界
+  2. 若 $$m$$ 是 $$S$$ 的任一下界，则 $$\inf S \geq m$$
+
+**定理1.1（上确界的等价刻画）**：$$\alpha = \sup S$$ 当且仅当：
+1. 对所有 $$x \in S$$：$$x \leq \alpha$$
+2. 对所有 $$\varepsilon > 0$$，存在 $$x \in S$$：$$x > \alpha - \varepsilon$$
+
+### 1.3 戴德金分割
+
+**定义1.3（戴德金分割）**：有理数集 $$Q$$ 的戴德金分割是有序对 $$(A, B)$$，满足：
+1. $$A, B \subset Q$$，$$A \neq \emptyset$$，$$B \neq \emptyset$$
+2. $$A \cup B = Q$$，$$A \cap B = \emptyset$$
+3. 对所有 $$a \in A, b \in B$$：$$a < b$$
+4. $$A$$ 没有最大元素
+
+**定理1.2（戴德金定理）**：每个戴德金分割都唯一确定一个实数。
+
+### 1.4 实数的完备性等价命题
+
+以下命题等价：
+1. **上确界公理**
+2. **戴德金分割定理**
+3. **区间套定理**
+4. **柯西收敛准则**
+5. **单调有界定理**
+6. **有限覆盖定理**（Heine-Borel）
+
+---
+
+## 第二章：序列理论
+
+### 2.1 序列的定义
+
+**定义2.1（数列）**：实数列是从自然数集到实数集的函数：
+
+$$a: N \to R, \quad n \mapsto a_n$$
+
+记为 $$\{a_n\}_{n=1}^{\infty}$$ 或 $$\{a_n\}$$。
+
+**定义2.2（子列）**：设 $$\{a_n\}$$ 是数列，$$\{n_k\}_{k=1}^{\infty}$$ 是严格递增的自然数列，则 $$\{a_{n_k}\}_{k=1}^{\infty}$$ 称为 $$\{a_n\}$$ 的子列。
+
+### 2.2 序列的收敛性
+
+**定义2.3（收敛）**：数列 $$\{a_n\}$$ 收敛到实数 $$L$$，记为 $$\lim_{n \to \infty} a_n = L$$，当且仅当：
+
+$$\text{对所有 } \varepsilon > 0, \text{ 存在 } N \in \mathbb{N}, \text{ 对所有 } n \geq N: |a_n - L| < \varepsilon$$
+
+**定义2.4（发散）**：若数列不收敛，则称其发散。
+
+**定义2.5（有界数列）**：
+
+- 数列 $$\{a_n\}$$ **有上界**：存在 $$M \in R$$，对所有 $$n \in N$$：$$a_n \leq M$$
+
+- 数列 $$\{a_n\}$$ **有下界**：存在 $$m \in R$$，对所有 $$n \in N$$：$$a_n \geq m$$
+
+- 数列 $$\{a_n\}$$ **有界**：存在 $$M > 0$$，对所有 $$n \in N$$：$$|a_n| \leq M$$
+
+### 2.3 柯西序列
+
+**定义2.6（柯西序列）**：数列 $$\{a_n\}$$ 是柯西序列，当且仅当：
+
+$$\text{对所有 } \varepsilon > 0, \text{ 存在 } N \in \mathbb{N}, \text{ 对所有 } m, n \geq N: |a_m - a_n| < \varepsilon$$
+
+**定理2.1（柯西收敛准则）**：实数列收敛当且仅当它是柯西序列。
+
+### 2.4 单调序列
+
+**定义2.7（单调性）**：
+
+- **单调递增**：对所有 $$n \in N$$：$$a_n \leq a_{n+1}$$
+
+- **严格单调递增**：对所有 $$n \in N$$：$$a_n < a_{n+1}$$
+
+- **单调递减**：对所有 $$n \in N$$：$$a_n \geq a_{n+1}$$
+
+- **严格单调递减**：对所有 $$n \in N$$：$$a_n > a_{n+1}$$
+
+**定理2.2（单调有界定理）**：单调有界数列必收敛。
+
+### 2.5 上极限与下极限
+
+**定义2.8（上极限与下极限）**：设 $$\{a_n\}$$ 为有界数列。
+
+- **上极限**：$$\limsup_{n \to \infty} a_n = \lim_{n \to \infty} \sup_{k \geq n} a_k$$
+
+- **下极限**：$$\liminf_{n \to \infty} a_n = \lim_{n \to \infty} \inf_{k \geq n} a_k$$
+
+**定理2.3**：数列收敛当且仅当其上极限等于下极限。
+
+---
+
+## 第三章：函数概念
+
+### 3.1 函数的定义
+
+**定义3.1（函数）**：设 $$D, E \subset R$$ 为非空集合。从 $$D$$ 到 $$E$$ 的函数 $$f$$ 是一个对应规则，使得对每个 $$x \in D$$，都有唯一的 $$y \in E$$ 与之对应，记为 $$y = f(x)$$。
+
+- **定义域**：$$\text{dom}(f) = D$$
+- **值域**：$$\text{range}(f) = \{f(x) : x \in D\}$$
+- **图像**：$$\text{graph}(f) = \{(x, f(x)) : x \in D\}$$
+
+### 3.2 函数的性质
+
+**定义3.2（单调性）**：设 $$f: D \to R$$，$$I \subset D$$ 为区间。
+
+- **单调递增**：对所有 $$x_1, x_2 \in I, x_1 < x_2$$ 蕴含 $$f(x_1) \leq f(x_2)$$
+
+- **严格单调递增**：对所有 $$x_1, x_2 \in I, x_1 < x_2$$ 蕴含 $$f(x_1) < f(x_2)$$
+
+- **单调递减**：对所有 $$x_1, x_2 \in I, x_1 < x_2$$ 蕴含 $$f(x_1) \geq f(x_2)$$
+
+- **严格单调递减**：对所有 $$x_1, x_2 \in I, x_1 < x_2$$ 蕴含 $$f(x_1) > f(x_2)$$
+
+**定义3.3（有界性）**：设 $$f: D \to R$$。
+
+- **有上界**：存在 $$M \in R$$，对所有 $$x \in D$$：$$f(x) \leq M$$
+
+- **有下界**：存在 $$m \in R$$，对所有 $$x \in D$$：$$f(x) \geq m$$
+
+- **有界**：存在 $$M > 0$$，对所有 $$x \in D$$：$$|f(x)| \leq M$$
+
+**定义3.4（周期性）**：函数 $$f$$ 是周期函数，若存在 $$T > 0$$ 使得：
+
+$$\text{对所有 } x \in \text{dom}(f): f(x + T) = f(x)$$
+
+最小的这样的 $$T$$ 称为基本周期。
+
+**定义3.5（奇偶性）**：设 $$f$$ 的定义域关于原点对称。
+
+- **偶函数**：对所有 $$x \in \text{dom}(f)$$：$$f(-x) = f(x)$$
+
+- **奇函数**：对所有 $$x \in \text{dom}(f)$$：$$f(-x) = -f(x)$$
+
+---
+
+## 第四章：函数极限理论
+
+### 4.1 函数极限的定义
+
+**定义4.1（函数在点处的极限）**：设 $$f$$ 在点 $$x_0$$ 的某去心邻域内有定义。称 $$f$$ 在 $$x_0$$ 处的极限为 $$L$$，记为 $$\lim_{x \to x_0} f(x) = L$$，当且仅当：
+
+$$\text{对所有 } \varepsilon > 0, \text{ 存在 } \delta > 0, \text{ 对所有 } x \in \text{dom}(f): 0 < |x - x_0| < \delta \text{ 蕴含 } |f(x) - L| < \varepsilon$$
+
+**定义4.2（单侧极限）**：
+
+- **右极限**：$$\lim_{x \to x_0^+} f(x) = L$$ 当且仅当对所有 $$\varepsilon > 0$$，存在 $$\delta > 0$$，对所有 $$x$$：$$x_0 < x < x_0 + \delta$$ 蕴含 $$|f(x) - L| < \varepsilon$$
+
+- **左极限**：$$\lim_{x \to x_0^-} f(x) = L$$ 当且仅当对所有 $$\varepsilon > 0$$，存在 $$\delta > 0$$，对所有 $$x$$：$$x_0 - \delta < x < x_0$$ 蕴含 $$|f(x) - L| < \varepsilon$$
+
+**定理4.1**：$$\lim_{x \to x_0} f(x) = L$$ 当且仅当 $$\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x) = L$$。
+
+### 4.2 无穷远处的极限
+
+**定义4.3（无穷远处的极限）**：
+
+- $$\lim_{x \to +\infty} f(x) = L$$ 当且仅当对所有 $$\varepsilon > 0$$，存在 $$X > 0$$，对所有 $$x > X$$：$$|f(x) - L| < \varepsilon$$
+
+- $$\lim_{x \to -\infty} f(x) = L$$ 当且仅当对所有 $$\varepsilon > 0$$，存在 $$X > 0$$，对所有 $$x < -X$$：$$|f(x) - L| < \varepsilon$$
+
+- $$\lim_{x \to \infty} f(x) = L$$ 当且仅当 $$\lim_{x \to +\infty} f(x) = \lim_{x \to -\infty} f(x) = L$$
+
+### 4.3 无穷极限
+
+**定义4.4（无穷极限）**：
+
+$$\lim_{x \to x_0} f(x) = +\infty$$
+
+当且仅当对所有 $$M > 0$$，存在 $$\delta > 0$$，对所有 $$x$$：$$0 < |x - x_0| < \delta$$ 蕴含 $$f(x) > M$$
+
+类似可定义 $$\lim_{x \to x_0} f(x) = -\infty$$。
+
+### 4.4 函数极限与数列极限的关系
+
+**定理4.2（海涅定理）**：$$\lim_{x \to x_0} f(x) = L$$ 当且仅当对任意满足 $$\lim_{n \to \infty} x_n = x_0$$ 且 $$x_n \neq x_0$$ 的数列 $$\{x_n\}$$，都有 $$\lim_{n \to \infty} f(x_n) = L$$。
+
+---
+
+## 第五章：连续性理论
+
+### 5.1 连续性的定义
+
+**定义5.1（点处连续）**：设 $$f$$ 在点 $$x_0$$ 及其某邻域内有定义。称 $$f$$ 在 $$x_0$$ 处连续，当且仅当：
+
+$$\lim_{x \to x_0} f(x) = f(x_0)$$
+
+等价地：
+
+$$\text{对所有 } \varepsilon > 0, \text{ 存在 } \delta > 0, \text{ 对所有 } x \in \text{dom}(f): |x - x_0| < \delta \text{ 蕴含 } |f(x) - f(x_0)| < \varepsilon$$
+
+**定义5.2（单侧连续）**：
+
+- **右连续**：$$\lim_{x \to x_0^+} f(x) = f(x_0)$$
+
+- **左连续**：$$\lim_{x \to x_0^-} f(x) = f(x_0)$$
+
+**定义5.3（区间上连续）**：
+
+- $$f$$ 在开区间 $$(a, b)$$ 上连续：$$f$$ 在 $$(a, b)$$ 内每点都连续
+
+- $$f$$ 在闭区间 $$[a, b]$$ 上连续：$$f$$ 在 $$(a, b)$$ 内连续，在 $$a$$ 右连续，在 $$b$$ 左连续
+
+### 5.2 连续函数类
+
+**定义5.4（连续函数类）**：
+
+$$C(I) = \{f : I \to R \mid f \text{ 在 } I \text{ 上连续}\}$$
+
+其中 $$I$$ 是区间。
+
+### 5.3 一致连续性
+
+**定义5.5（一致连续）**：函数 $$f$$ 在集合 $$D$$ 上一致连续，当且仅当：
+
+$$\text{对所有 } \varepsilon > 0, \text{ 存在 } \delta > 0, \text{ 对所有 } x_1, x_2 \in D: |x_1 - x_2| < \delta \text{ 蕴含 } |f(x_1) - f(x_2)| < \varepsilon$$
+
+**定理5.1（Cantor定理）**：闭区间上的连续函数必一致连续。
+
+### 5.4 连续函数的重要性质
+
+**定理5.2（有界性定理）**：若 $$f$$ 在紧集上连续，则 $$f$$ 有界。
+
+**定理5.3（最值定理）**：若 $$f$$ 在紧集上连续，则 $$f$$ 能取到最大值和最小值。
+
+**定理5.4（中间值定理）**：设 $$f$$ 在 $$[a, b]$$ 上连续，若 $$f(a) \neq f(b)$$，则对任意介于 $$f(a)$$ 和 $$f(b)$$ 之间的值 $$\mu$$，存在 $$c \in (a, b)$$ 使得 $$f(c) = \mu$$。
+
+**定理5.5（零点定理）**：设 $$f$$ 在 $$[a, b]$$ 上连续，若 $$f(a) \cdot f(b) < 0$$，则存在 $$c \in (a, b)$$ 使得 $$f(c) = 0$$。
+
+---
+
+## 第六章：导数理论
+
+### 6.1 导数的定义
+
+**定义6.1（导数）**：设函数 $$f$$ 在点 $$x_0$$ 的某邻域内有定义。若极限
+
+$$\lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$$
+
+存在，则称 $$f$$ 在点 $$x_0$$ 可导，该极限值称为 $$f$$ 在 $$x_0$$ 的导数，记为 $$f'(x_0)$$。
+
+**等价定义**：
+
+$$f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$$
+
+**定义6.2（单侧导数）**：
+
+- **右导数**：$$f'_+(x_0) = \lim_{h \to 0^+} \frac{f(x_0 + h) - f(x_0)}{h}$$
+
+- **左导数**：$$f'_-(x_0) = \lim_{h \to 0^-} \frac{f(x_0 + h) - f(x_0)}{h}$$
+
+**定理6.1**：$$f$$ 在 $$x_0$$ 可导当且仅当左导数和右导数都存在且相等。
+
+### 6.2 高阶导数
+
+**定义6.3（高阶导数）**：设 $$f$$ 在区间 $$I$$ 上可导。若 $$f'$$ 在某点 $$x_0 \in I$$ 可导，则称 $$f$$ 在 $$x_0$$ 二阶可导，$$(f')'(x_0)$$ 称为 $$f$$ 在 $$x_0$$ 的二阶导数，记为 $$f''(x_0)$$。
+
+一般地，$$f$$ 的 $$n$$ 阶导数定义为：
+
+$$f^{(n)}(x) = \frac{d}{dx}[f^{(n-1)}(x)]$$
+
+### 6.3 可微函数类
+
+**定义6.4（$$C^n$$ 函数类）**：
+
+- $$C^0(I) = C(I)$$：连续函数类
+
+- $$C^1(I) = \{f : I \to R \mid f' \text{ 存在且连续}\}$$
+
+- $$C^n(I) = \{f : I \to R \mid f^{(k)} \text{ 存在且连续，} k = 0, 1, \ldots, n\}$$
+
+- $$C^\infty(I) = \bigcap_{n=0}^\infty C^n(I)$$：无穷次可微函数类
+
+### 6.4 可导性与连续性
+
+**定理6.2（可导必连续）**：若 $$f$$ 在 $$x_0$$ 可导，则 $$f$$ 在 $$x_0$$ 连续。
+
+注意：连续不一定可导。
+
+---
+
+## 第七章：微分中值定理
+
+### 7.1 费马引理
+
+**引理7.1（费马引理）**：设 $$f$$ 在 $$(a, b)$$ 内有定义，在 $$x_0 \in (a, b)$$ 可导。若 $$x_0$$ 是 $$f$$ 的局部极值点，则 $$f'(x_0) = 0$$。
+
+### 7.2 罗尔定理
+
+**定理7.1（罗尔定理）**：设函数 $$f$$ 满足：
+1. $$f$$ 在 $$[a, b]$$ 上连续
+2. $$f$$ 在 $$(a, b)$$ 内可导
+3. $$f(a) = f(b)$$
+
+则存在 $$\xi \in (a, b)$$ 使得 $$f'(\xi) = 0$$。
+
+### 7.3 拉格朗日中值定理
+
+**定理7.2（拉格朗日中值定理）**：设函数 $$f$$ 满足：
+1. $$f$$ 在 $$[a, b]$$ 上连续
+2. $$f$$ 在 $$(a, b)$$ 内可导
+
+则存在 $$\xi \in (a, b)$$ 使得：
+
+$$f'(\xi) = \frac{f(b) - f(a)}{b - a}$$
+
+### 7.4 柯西中值定理
+
+**定理7.3（柯西中值定理）**：设函数 $$f, g$$ 满足：
+1. $$f, g$$ 在 $$[a, b]$$ 上连续
+2. $$f, g$$ 在 $$(a, b)$$ 内可导
+3. 对所有 $$x \in (a, b)$$：$$g'(x) \neq 0$$
+
+则存在 $$\xi \in (a, b)$$ 使得：
+
+$$\frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)}$$
+
+### 7.5 洛必达法则
+
+**定理7.4（洛必达法则）**：设函数 $$f, g$$ 在点 $$a$$ 的某去心邻域内可导，$$g'(x) \neq 0$$，且满足：
+1. $$\lim_{x \to a} f(x) = \lim_{x \to a} g(x) = 0$$ 或 $$\lim_{x \to a} g(x) = \infty$$
+2. $$\lim_{x \to a} \frac{f'(x)}{g'(x)}$$ 存在（或为无穷）
+
+则：
+
+$$\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}$$
+
+---
+
+## 第八章：泰勒定理与函数逼近
+
+### 8.1 泰勒多项式
+
+**定义8.1（泰勒多项式）**：设 $$f$$ 在 $$x_0$$ 处有 $$n$$ 阶导数，则 $$f$$ 在 $$x_0$$ 处的 $$n$$ 次泰勒多项式为：
+
+$$T_n(x; x_0) = \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$$
+
+特别地，当 $$x_0 = 0$$ 时称为麦克劳林多项式。
 
 ### 8.2 泰勒定理
 
 **定理8.1（泰勒定理）**：设 $f$ 在 $[a, b]$ 上有 $n$ 阶连续导数，在 $(a, b)$ 内有 $n+1$ 阶导数，$x_0 \in [a, b]$，则对任意 $x \in [a, b]$，存在 $\xi$ 介于 $x$ 和 $x_0$ 之间，使得：
-$$f(x) = T_n(x; x_0) + R_n(x)$$
+
+$f(x) = T_n(x; x_0) + R_n(x)$
 
 其中余项 $R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_0)^{n+1}$（拉格朗日余项）。
 
 **定理8.2（佩亚诺余项）**：若 $f$ 在 $x_0$ 处有 $n$ 阶导数，则：
-$$f(x) = T_n(x; x_0) + o((x - x_0)^n)$$
+
+$f(x) = T_n(x; x_0) + o((x - x_0)^n)$
 
 ### 8.3 泰勒级数
 
 **定义8.2（泰勒级数）**：若 $f$ 在 $x_0$ 处有任意阶导数，则其泰勒级数为：
-$$\sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$$
+
+$\sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$
 
 **定义8.3（解析函数）**：若函数 $f$ 在点 $x_0$ 的某邻域内等于其泰勒级数，则称 $f$ 在 $x_0$ 解析。
 
@@ -372,13 +1309,19 @@ $$\sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$$
 ### 9.1 误差的基本概念
 
 **定义9.1（绝对误差与相对误差）**：设 $x^*$ 为精确值 $x$ 的近似值。
+
 - **绝对误差**：$e = x^* - x$
+
 - **绝对误差的绝对值**：$|e| = |x^* - x|$
+
 - **相对误差**：$e_r = \frac{x^* - x}{x}$ （当 $x \neq 0$ 时）
+
 - **相对误差的绝对值**：$|e_r| = \left|\frac{x^* - x}{x}\right|$
 
 **定义9.2（误差限）**：
+
 - **绝对误差限**：若 $|x^* - x| \leq \varepsilon$，则称 $\varepsilon$ 为绝对误差限
+
 - **相对误差限**：若 $\left|\frac{x^* - x}{x}\right| \leq \delta$，则称 $\delta$ 为相对误差限
 
 ### 9.2 有效数字
@@ -386,7 +1329,9 @@ $$\sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k$$
 **定义9.3（有效数字）**：若近似值 $x^*$ 的绝对误差限不超过其第 $n$ 位数字所在位的半个单位，则称 $x^*$ 有 $n$ 位有效数字。
 
 具体地，若 $x^* = \pm 0.a_1a_2\cdots a_n \times 10^m$（其中 $a_1 \neq 0$），且
+
 $|x^* - x| \leq \frac{1}{2} \times 10^{m-n}$
+
 则称 $x^*$ 有 $n$ 位有效数字。
 
 ### 9.3 误差传播
@@ -394,17 +1339,21 @@ $|x^* - x| \leq \frac{1}{2} \times 10^{m-n}$
 **定义9.4（误差传播）**：考虑函数 $y = f(x_1, x_2, \ldots, x_n)$，其中各变量 $x_i$ 都有误差 $\Delta x_i$。
 
 **线性化误差传播公式**：
+
 $\Delta y \approx \sum_{i=1}^n \frac{\partial f}{\partial x_i} \Delta x_i$
 
 **相对误差传播公式**：
+
 $\frac{\Delta y}{y} \approx \sum_{i=1}^n \frac{\partial \ln |f|}{\partial x_i} \frac{\Delta x_i}{x_i}$
 
 ### 9.4 条件数
 
 **定义9.5（问题的条件数）**：对于问题 $y = f(x)$，在点 $x$ 处的（相对）条件数定义为：
+
 $\kappa(x) = \left|\frac{x f'(x)}{f(x)}\right|$
 
 **定义9.6（矩阵的条件数）**：对于可逆矩阵 $A$，其条件数定义为：
+
 $\text{cond}(A) = \|A\| \cdot \|A^{-1}\|$
 
 其中 $\|\cdot\|$ 是矩阵范数。
@@ -420,6 +1369,7 @@ $\text{cond}(A) = \|A\| \cdot \|A^{-1}\|$
 ### 10.1 序列的收敛阶
 
 **定义10.1（收敛阶）**：设数列 $\{x_n\}$ 收敛到 $x^*$，$x_n \neq x^*$。若存在常数 $C > 0$ 和 $p \geq 1$ 使得：
+
 $\lim_{n \to \infty} \frac{|x_{n+1} - x^*|}{|x_n - x^*|^p} = C$
 
 则称数列以 $p$ 阶收敛到 $x^*$。特别地：
@@ -437,13 +1387,22 @@ $\lim_{n \to \infty} \frac{|x_{n+1} - x^*|}{|x_n - x^*|^p} = C$
 ### 10.3 渐近表示
 
 **定义10.4（大O记号）**：设 $f, g$ 是定义在某集合上的函数。
-$f(x) = O(g(x)) \Leftrightarrow \exists C > 0, \exists x_0, \forall x > x_0: |f(x)| \leq C|g(x)|$
+
+$f(x) = O(g(x))$
+
+当且仅当存在 $C > 0, x_0$，对所有 $x > x_0$：$|f(x)| \leq C|g(x)|$
 
 **定义10.5（小o记号）**：
-$f(x) = o(g(x)) \Leftrightarrow \lim_{x \to \infty} \frac{f(x)}{g(x)} = 0$
+
+$f(x) = o(g(x))$
+
+当且仅当 $\lim_{x \to \infty} \frac{f(x)}{g(x)} = 0$
 
 **定义10.6（同阶）**：
-$f(x) = \Theta(g(x)) \Leftrightarrow \exists C_1, C_2 > 0, \exists x_0, \forall x > x_0: C_1|g(x)| \leq |f(x)| \leq C_2|g(x)|$
+
+$f(x) = \Theta(g(x))$
+
+当且仅当存在 $C_1, C_2 > 0, x_0$，对所有 $x > x_0$：$C_1|g(x)| \leq |f(x)| \leq C_2|g(x)|$
 
 ---
 
@@ -452,9 +1411,11 @@ $f(x) = \Theta(g(x)) \Leftrightarrow \exists C_1, C_2 > 0, \exists x_0, \forall 
 ### 11.1 数值稳定性的定义
 
 **定义11.1（前向误差）**：设算法求解问题 $f(x) = y$，算法输出为 $\tilde{y}$，则前向误差为：
+
 $E_f = \tilde{y} - y$
 
 **定义11.2（后向误差）**：若算法输出 $\tilde{y}$ 是问题 $f(\tilde{x}) = \tilde{y}$ 的精确解，则后向误差为：
+
 $E_b = \tilde{x} - x$
 
 **定义11.3（数值稳定性）**：一个算法是数值稳定的，如果对于任何输入，都存在接近原输入的扰动输入，使得算法输出是该扰动问题的精确解。
@@ -462,7 +1423,9 @@ $E_b = \tilde{x} - x$
 ### 11.2 算法稳定性的分类
 
 **定义11.4（前向稳定）**：算法是前向稳定的，如果对所有输入 $x$：
+
 $\|\tilde{y} - y\| \leq C \varepsilon \|y\|$
+
 其中 $\varepsilon$ 是机器精度，$C$ 是适度的常数。
 
 **定义11.5（后向稳定）**：算法是后向稳定的，如果对所有输入 $x$，都存在 $\Delta x$ 使得：
@@ -473,53 +1436,135 @@ $\|\tilde{y} - y\| \leq C \varepsilon \|y\|$
 
 ---
 
-## 第十二章：插值理论基础
+## 第十二章：内积空间理论
 
-### 12.1 插值问题
+### 12.1 内积的定义
 
-**定义12.1（插值问题）**：给定 $n+1$ 个不同的节点 $x_0, x_1, \ldots, x_n$ 和对应的函数值 $y_0, y_1, \ldots, y_n$，求函数 $P(x)$ 使得：
-$P(x_i) = y_i, \quad i = 0, 1, \ldots, n$
+**定义12.1（内积）**：设 $V$ 是实线性空间，内积是映射 $\langle \cdot, \cdot \rangle: V \times V \to R$，满足：
+1. **对称性**：$\langle x, y \rangle = \langle y, x \rangle$
+2. **第一变元线性**：$\langle \alpha x + \beta y, z \rangle = \alpha \langle x, z \rangle + \beta \langle y, z \rangle$
+3. **正定性**：$\langle x, x \rangle \geq 0$，且 $\langle x, x \rangle = 0$ 当且仅当 $x = 0$
 
-**定理12.1（多项式插值的存在唯一性）**：$n+1$ 个不同节点确定唯一的 $n$ 次多项式。
+称 $(V, \langle \cdot, \cdot \rangle)$ 为内积空间。
 
-### 12.2 插值误差
+### 12.2 由内积诱导的范数
 
-**定义12.2（插值误差）**：设 $f$ 为被插值函数，$P_n$ 为插值多项式，则插值误差为：
-$E_n(x) = f(x) - P_n(x)$
+**定义12.2（内积诱导的范数）**：在内积空间中，由内积诱导的范数为：
 
-**定理12.2（插值误差公式）**：设 $f \in C^{n+1}[a, b]$，插值节点 $x_0, x_1, \ldots, x_n \in [a, b]$，则对任意 $x \in [a, b]$，存在 $\xi \in (a, b)$ 使得：
-$f(x) - P_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \omega_{n+1}(x)$
-其中 $\omega_{n+1}(x) = \prod_{j=0}^n (x - x_j)$。
+$\|x\| = \sqrt{\langle x, x \rangle}$
 
-### 12.3 逼近度量
+**定理12.1（Cauchy-Schwarz不等式）**：在内积空间中，
 
-**定义12.3（均匀逼近）**：函数 $g$ 在区间 $[a, b]$ 上均匀逼近函数 $f$，若：
-$\lim_{n \to \infty} \max_{x \in [a, b]} |f(x) - g_n(x)| = 0$
+$|\langle x, y \rangle| \leq \|x\| \|y\|$
 
-**定义12.4（最佳逼近）**：在给定函数类 $\mathcal{F}$ 中，函数 $g^* \in \mathcal{F}$ 是 $f$ 的最佳逼近，若：
-$\|f - g^*\| = \inf_{g \in \mathcal{F}} \|f - g\|$
+等号成立当且仅当 $x$ 和 $y$ 线性相关。
+
+### 12.3 正交性
+
+**定义12.3（正交）**：内积空间中的两个向量 $x, y$ 正交，记为 $x \perp y$，当且仅当 $\langle x, y \rangle = 0$。
+
+**定义12.4（正交集合与正交系）**：
+- 集合 $S$ 是正交的，若其中任意两个不同元素都正交
+- 若正交集合中每个元素的范数都为1，则称为标准正交系
+
+**定义12.5（正交补）**：设 $M \subset V$，则 $M$ 的正交补为：
+
+$M^\perp = \{x \in V : \langle x, y \rangle = 0, \text{对所有 } y \in M\}$
+
+### 12.4 正交投影
+
+**定理12.2（投影定理）**：设 $M$ 是内积空间 $V$ 的有限维子空间，则对任意 $x \in V$，存在唯一的 $P_M x \in M$ 使得：
+
+$\|x - P_M x\| = \inf_{y \in M} \|x - y\|$
+
+称 $P_M x$ 为 $x$ 在 $M$ 上的正交投影。
+
+**定理12.3（投影的性质）**：正交投影 $P_M$ 满足：
+1. $P_M$ 是线性算子
+2. $P_M^2 = P_M$（幂等性）
+3. $(x - P_M x) \perp M$
+
+### 12.5 Hilbert空间
+
+**定义12.6（Hilbert空间）**：完备的内积空间称为Hilbert空间。
+
+**定理12.4（Riesz表示定理）**：设 $H$ 是Hilbert空间，$f: H \to R$ 是有界线性泛函，则存在唯一的 $y \in H$ 使得：
+
+$f(x) = \langle x, y \rangle, \quad \text{对所有 } x \in H$
+
+### 12.6 函数空间中的内积
+
+**定义12.7（$L^2$ 内积）**：在函数空间 $L^2[a, b]$ 中，内积定义为：
+
+$\langle f, g \rangle = \int_a^b f(x) g(x) dx$
+
+**定义12.8（加权内积）**：对于权函数 $w(x) > 0$，加权内积为：
+
+$\langle f, g \rangle_w = \int_a^b f(x) g(x) w(x) dx$
 
 ---
 
-## 第十三章：数值积分理论基础
+## 第十三章：线性空间理论
 
-### 13.1 数值积分的基本概念
+### 13.1 线性空间的定义
 
-**定义13.1（求积公式）**：数值积分的一般形式为：
-$\int_a^b f(x) w(x) dx \approx \sum_{i=0}^n A_i f(x_i)$
-其中 $w(x)$ 是权函数，$A_i$ 是求积系数，$x_i$ 是求积节点。
+**定义13.1（线性空间）**：设 $V$ 是非空集合，$F$ 是数域（通常为 $R$ 或 $C$）。若在 $V$ 上定义了加法运算 $+: V \times V \to V$ 和数量乘法运算 $\cdot: F \times V \to V$，满足以下公理，则称 $(V, +, \cdot)$ 为 $F$ 上的线性空间：
 
-**定义13.2（求积公式的余项）**：
-$R[f] = \int_a^b f(x) w(x) dx - \sum_{i=0}^n A_i f(x_i)$
+**加法公理**：
+1. **结合律**：$(x + y) + z = x + (y + z)$
+2. **交换律**：$x + y = y + x$
+3. **零元存在**：存在 $0 \in V$，对所有 $x \in V$：$x + 0 = x$
+4. **负元存在**：对所有 $x \in V$，存在 $(-x) \in V$：$x + (-x) = 0$
 
-### 13.2 代数精度
+**数量乘法公理**：
+5. **分配律I**：$\alpha(x + y) = \alpha x + \alpha y$
+6. **分配律II**：$(\alpha + \beta)x = \alpha x + \beta x$
+7. **结合律**：$(\alpha \beta)x = \alpha(\beta x)$
+8. **单位元**：$1 \cdot x = x$
 
-**定义13.3（代数精度）**：若求积公式对所有次数不超过 $m$ 的多项式都精确成立，但对某个 $m+1$ 次多项式不精确成立，则称该求积公式具有 $m$ 次代数精度。
+### 13.2 线性相关与线性无关
 
-### 13.3 数值积分的稳定性
+**定义13.2（线性组合）**：向量 $v_1, v_2, \ldots, v_n \in V$ 的线性组合是形如 $\alpha_1 v_1 + \alpha_2 v_2 + \cdots + \alpha_n v_n$ 的向量，其中 $\alpha_i \in F$。
 
-**定义13.4（数值积分的稳定性）**：求积公式是稳定的，如果存在常数 $C$（与 $n$ 无关）使得：
-$\sum_{i=0}^n |A_i| \leq C$
+**定义13.3（线性相关与线性无关）**：向量组 $\{v_1, v_2, \ldots, v_n\}$ 称为：
+
+- **线性相关**：存在不全为零的系数 $\alpha_1, \ldots, \alpha_n$ 使得 $\alpha_1 v_1 + \cdots + \alpha_n v_n = 0$
+
+- **线性无关**：只有当 $\alpha_1 = \cdots = \alpha_n = 0$ 时才有 $\alpha_1 v_1 + \cdots + \alpha_n v_n = 0$
+
+### 13.3 基与维数
+
+**定义13.4（张成空间）**：向量组 $S = \{v_1, v_2, \ldots, v_n\}$ 张成的空间为：
+
+$\text{span}(S) = \left\{\sum_{i=1}^n \alpha_i v_i : \alpha_i \in F\right\}$
+
+**定义13.5（基）**：线性空间 $V$ 的基是 $V$ 的一个线性无关的张成集合。
+
+**定理13.1（基的存在性）**：每个有限维线性空间都有基。
+
+**定义13.6（维数）**：有限维线性空间 $V$ 的维数是其基中元素的个数，记为 $\dim V$。
+
+### 13.4 子空间
+
+**定义13.7（子空间）**：线性空间 $V$ 的非空子集 $W$ 称为子空间，若 $W$ 在 $V$ 的运算下也构成线性空间。
+
+**定理13.2（子空间判别法）**：$W \subset V$ 是子空间当且仅当：
+1. $0 \in W$
+2. 对所有 $x, y \in W, \alpha, \beta \in F$：$\alpha x + \beta y \in W$
+
+### 13.5 线性映射
+
+**定义13.8（线性映射）**：设 $V, W$ 是线性空间，映射 $T: V \to W$ 称为线性映射，若：
+
+$T(\alpha x + \beta y) = \alpha T(x) + \beta T(y), \quad \text{对所有 } x, y \in V, \alpha, \beta \in F$
+
+**定义13.9（核与像）**：线性映射 $T: V \to W$ 的：
+
+- **核**：$\ker T = \{x \in V : T(x) = 0\}$
+
+- **像**：$\text{Im} T = \{T(x) : x \in V\}$
+
+**定理13.3（线性映射基本定理）**：$\dim V = \dim \ker T + \dim \text{Im} T$
 
 ---
 
@@ -530,13 +1575,15 @@ $\sum_{i=0}^n |A_i| \leq C$
 **定义14.1（不动点）**：设 $T: D \to D$ 是映射，若 $x^* \in D$ 满足 $T(x^*) = x^*$，则称 $x^*$ 为 $T$ 的不动点。
 
 **定义14.2（压缩映射）**：设 $(X, d)$ 是度量空间，映射 $T: X \to X$ 称为压缩映射，若存在常数 $0 < L < 1$ 使得：
-$d(T(x), T(y)) \leq L \cdot d(x, y), \quad \forall x, y \in X$
+
+$d(T(x), T(y)) \leq L \cdot d(x, y), \quad \text{对所有 } x, y \in X$
 
 **定理14.1（Banach不动点定理）**：完备度量空间中的压缩映射有唯一不动点，且对任意初值的迭代序列都收敛到该不动点。
 
 ### 14.2 迭代法的收敛性
 
 **定义14.3（一般迭代法）**：
+
 $x_{n+1} = T(x_n), \quad n = 0, 1, 2, \ldots$
 
 **定理14.2（局部收敛定理）**：设 $T$ 在不动点 $x^*$ 的邻域内可微，且 $|T'(x^*)| < 1$，则存在 $x^*$ 的邻域，使得该邻域内任意初值的迭代都收敛到 $x^*$。
@@ -547,33 +1594,43 @@ $x_{n+1} = T(x_n), \quad n = 0, 1, 2, \ldots$
 
 ### 15.1 向量范数
 
-**定义15.1（向量范数）**：$\mathbb{R}^n$ 上的范数是函数 $\|\cdot\|: \mathbb{R}^n \to \mathbb{R}_+$，满足：
-1. **正定性**：$\|x\| \geq 0$，且 $\|x\| = 0 \Leftrightarrow x = 0$
-2. **齐次性**：$\|\alpha x\| = |\alpha| \|x\|$，$\forall \alpha \in \mathbb{R}$
+**定义15.1（向量范数）**：$R^n$ 上的范数是函数 $\|\cdot\|: R^n \to R_+$，满足：
+1. **正定性**：$\|x\| \geq 0$，且 $\|x\| = 0$ 当且仅当 $x = 0$
+2. **齐次性**：$\|\alpha x\| = |\alpha| \|x\|$，对所有 $\alpha \in R$
 3. **三角不等式**：$\|x + y\| \leq \|x\| + \|y\|$
 
 **常用向量范数**：
+
 - **1-范数**：$\|x\|_1 = \sum_{i=1}^n |x_i|$
+
 - **2-范数**：$\|x\|_2 = \sqrt{\sum_{i=1}^n x_i^2}$
+
 - **$\infty$-范数**：$\|x\|_\infty = \max_{1 \leq i \leq n} |x_i|$
 
 ### 15.2 矩阵范数
 
-**定义15.2（矩阵范数）**：$\mathbb{R}^{n \times n}$ 上的范数是函数 $\|\cdot\|: \mathbb{R}^{n \times n} \to \mathbb{R}_+$，满足范数的三个基本性质，以及：
+**定义15.2（矩阵范数）**：$R^{n \times n}$ 上的范数是函数 $\|\cdot\|: R^{n \times n} \to R_+$，满足范数的三个基本性质，以及：
+
 4. **相容性**：$\|AB\| \leq \|A\| \|B\|$
 
 **定义15.3（算子范数）**：由向量范数诱导的矩阵范数：
+
 $\|A\| = \sup_{x \neq 0} \frac{\|Ax\|}{\|x\|} = \sup_{\|x\| = 1} \|Ax\|$
 
 **常用矩阵范数**：
+
 - **1-范数**：$\|A\|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^n |a_{ij}|$（列和的最大值）
+
 - **$\infty$-范数**：$\|A\|_\infty = \max_{1 \leq i \leq n} \sum_{j=1}^n |a_{ij}|$（行和的最大值）
+
 - **2-范数**：$\|A\|_2 = \sqrt{\rho(A^T A)}$（最大奇异值）
 
 ### 15.3 谱半径
 
 **定义15.4（谱半径）**：矩阵 $A$ 的谱半径定义为：
+
 $\rho(A) = \max_{1 \leq i \leq n} |\lambda_i|$
+
 其中 $\lambda_i$ 是 $A$ 的特征值。
 
 **定理15.1**：对任意矩阵范数，有 $\rho(A) \leq \|A\|$。
@@ -587,7 +1644,9 @@ $\rho(A) = \max_{1 \leq i \leq n} |\lambda_i|$
 ### 16.1 最佳逼近
 
 **定义16.1（最佳逼近元）**：设 $(X, \|\cdot\|)$ 是赋范线性空间，$f \in X$，$Y \subset X$ 是子空间。若 $g^* \in Y$ 满足：
+
 $\|f - g^*\| = \inf_{g \in Y} \|f - g\| = d(f, Y)$
+
 则称 $g^*$ 为 $f$ 在 $Y$ 中的最佳逼近元。
 
 **定义16.2（逼近误差）**：$d(f, Y) = \inf_{g \in Y} \|f - g\|$ 称为 $f$ 到子空间 $Y$ 的距离或逼近误差。
@@ -595,9 +1654,11 @@ $\|f - g^*\| = \inf_{g \in Y} \|f - g\| = d(f, Y)$
 ### 16.2 线性逼近
 
 **定义16.3（线性泛函）**：设 $Y$ 是 $n$ 维子空间，$\{g_1, g_2, \ldots, g_n\}$ 是 $Y$ 的基。线性逼近的形式为：
+
 $L_n(f) = \sum_{i=1}^n c_i g_i$
 
 **定义16.4（线性算子的范数）**：线性算子 $L: X \to Y$ 的范数定义为：
+
 $\|L\| = \sup_{\|f\|_X = 1} \|L(f)\|_Y$
 
 ### 16.3 Weierstrass逼近定理
@@ -618,23 +1679,25 @@ $\|L\| = \sup_{\|f\|_X = 1} \|L(f)\|_Y$
 
 ### 17.1 赋范空间
 
-**定义17.1（赋范空间）**：设 $X$ 是线性空间，$\|\cdot\|: X \to \mathbb{R}_+$ 是范数，则称 $(X, \|\cdot\|)$ 为赋范空间。
+**定义17.1（赋范空间）**：设 $X$ 是线性空间，$\|\cdot\|: X \to R_+$ 是范数，则称 $(X, \|\cdot\|)$ 为赋范空间。
 
 **定义17.2（Banach空间）**：完备的赋范空间称为Banach空间。
 
 ### 17.2 有界线性算子
 
 **定义17.3（有界线性算子）**：设 $X, Y$ 是赋范空间，线性算子 $T: X \to Y$ 称为有界的，若存在常数 $M > 0$ 使得：
-$\|T x\|_Y \leq M \|x\|_X, \quad \forall x \in X$
+
+$\|T x\|_Y \leq M \|x\|_X, \quad \text{对所有 } x \in X$
 
 **定理17.1**：线性算子 $T$ 有界当且仅当 $T$ 连续。
 
 **定义17.4（算子范数）**：有界线性算子 $T: X \to Y$ 的范数定义为：
+
 $\|T\| = \sup_{\|x\|_X \leq 1} \|T x\|_Y = \sup_{\|x\|_X = 1} \|T x\|_Y = \sup_{x \neq 0} \frac{\|T x\|_Y}{\|x\|_X}$
 
 ### 17.3 对偶空间
 
-**定义17.5（对偶空间）**：赋范空间 $X$ 的对偶空间 $X^*$ 是所有有界线性泛函 $f: X \to \mathbb{R}$ 构成的空间。
+**定义17.5（对偶空间）**：赋范空间 $X$ 的对偶空间 $X^*$ 是所有有界线性泛函 $f: X \to R$ 构成的空间。
 
 **定理17.2（Riesz表示定理的推广）**：在Hilbert空间中，每个有界线性泛函都可以表示为内积的形式。
 
