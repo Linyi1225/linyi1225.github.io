@@ -27,7 +27,7 @@ plugins:
   - jekyll-feed
   - jekyll-include-cache
 
-# Markdown配置
+# Markdown配置 - 数学公式支持优化
 markdown: kramdown
 highlighter: rouge
 kramdown:
@@ -39,12 +39,16 @@ kramdown:
   toc_levels: 1..6
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   syntax_highlighter: rouge
+  math_engine: mathjax
+  math_engine_opts:
+    preview: true
+    preview_as_code: false
 
 # 分页设置
 paginate: 5
 paginate_path: /page:num/
 
-# 集合配置 - 支持子目录结构
+# 集合配置 - 支持层次化目录结构
 collections:
   notes:
     output: true
@@ -73,8 +77,9 @@ author:
       icon: "fas fa-fw fa-envelope"
       url: "mailto:lin@deep-matrix.org"
 
-# 默认设置
+# 默认设置 - 针对层次化目录优化
 defaults:
+  # 学术笔记默认设置
   - scope:
       path: "_notes"
       type: notes
@@ -88,6 +93,44 @@ defaults:
       toc: true
       toc_label: "目录"
       toc_icon: "cog"
+      mathjax: true
+  # 数值分析系列特定设置
+  - scope:
+      path: "_notes/numerical-analysis"
+      type: notes
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      toc: true
+      toc_label: "目录"
+      toc_icon: "cog"
+      mathjax: true
+      classes: wide
+      sidebar:
+        nav: "numerical-analysis"
+  # 概率论系列特定设置
+  - scope:
+      path: "_notes/probability-theory"
+      type: notes
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      toc: true
+      toc_label: "目录"
+      toc_icon: "cog"
+      mathjax: true
+      classes: wide
+      sidebar:
+        nav: "probability-theory"
+  # 代码实现默认设置
   - scope:
       path: "_code"
       type: code
@@ -99,6 +142,7 @@ defaults:
       share: true
       related: true
       classes: wide
+  # 博客文章默认设置
   - scope:
       path: "_posts"
       type: posts
@@ -110,6 +154,7 @@ defaults:
       share: true
       related: true
       show_date: true
+  # 页面默认设置
   - scope:
       path: ""
       type: pages
@@ -117,9 +162,10 @@ defaults:
       layout: single
       author_profile: true
 
-# 搜索
+# 搜索功能
 search: true
 search_full_content: true
+search_provider: lunr
 
 # 社交设置
 social:
@@ -129,24 +175,105 @@ social:
     - "https://github.com/linyi1225"
     - "https://orcid.org/0009-0009-6464-2663"
 
-# SEO
+# SEO优化
 locale: "zh-CN"
 title_separator: "-"
+og_image: "/assets/images/site-logo.png"
 
-# 数学公式支持
+# 数学公式支持 - MathJax配置
 mathjax:
   enable: true
+  combo: "tex-mml-chtml"
+  tags: "ams"
+
+# 头部脚本 - MathJax支持
+head_scripts:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 # 相关文章
 related: true
 
-# 压缩
+# 压缩HTML
 compress_html:
   clippings: all
   ignore:
     envs: development
 
-# 排除文件
+# 分析和统计
+analytics:
+  provider: false  # 如需要可设置为 "google" 等
+
+# 评论系统
+comments:
+  provider: false  # 如需要可设置评论系统
+
+# 网站验证
+# google_site_verification: "your-verification-code"
+
+# 导航配置 - 支持侧边栏导航
+navigation:
+  numerical-analysis:
+    - title: "理论基础"
+      children:
+        - title: "实数理论"
+          url: /notes/numerical-analysis/foundations/01-real-numbers/
+        - title: "序列理论"
+          url: /notes/numerical-analysis/foundations/02-sequences/
+        - title: "完备性理论"
+          url: /notes/numerical-analysis/foundations/03-completeness/
+    - title: "分析理论"
+      children:
+        - title: "函数概念"
+          url: /notes/numerical-analysis/analysis/01-functions/
+        - title: "极限理论"
+          url: /notes/numerical-analysis/analysis/02-limits/
+        - title: "连续性"
+          url: /notes/numerical-analysis/analysis/03-continuity/
+        - title: "导数理论"
+          url: /notes/numerical-analysis/analysis/04-derivatives/
+    - title: "误差理论"
+      children:
+        - title: "误差分类"
+          url: /notes/numerical-analysis/errors/01-error-types/
+        - title: "收敛理论"
+          url: /notes/numerical-analysis/errors/02-convergence/
+        - title: "数值稳定性"
+          url: /notes/numerical-analysis/errors/03-stability/
+    - title: "空间理论"
+      children:
+        - title: "线性空间"
+          url: /notes/numerical-analysis/spaces/01-linear-spaces/
+        - title: "内积空间"
+          url: /notes/numerical-analysis/spaces/02-inner-product/
+        - title: "赋范空间"
+          url: /notes/numerical-analysis/spaces/03-normed-spaces/
+        - title: "逼近论"
+          url: /notes/numerical-analysis/spaces/04-approximation/
+    - title: "应用理论"
+      children:
+        - title: "迭代法理论"
+          url: /notes/numerical-analysis/applications/01-iteration/
+        - title: "泛函分析"
+          url: /notes/numerical-analysis/applications/02-functional-analysis/
+        - title: "未来发展"
+          url: /notes/numerical-analysis/applications/03-future-directions/
+
+  probability-theory:
+    - title: "测度理论"
+      children:
+        - title: "测度空间"
+          url: /notes/probability-theory/measure/01-measure-spaces/
+        - title: "可测函数"
+          url: /notes/probability-theory/measure/02-measurable-functions/
+    - title: "概率理论"
+      children:
+        - title: "概率空间"
+          url: /notes/probability-theory/probability/01-probability-spaces/
+        - title: "随机变量"
+          url: /notes/probability-theory/probability/02-random-variables/
+
+# 排除文件和目录
 exclude:
   - .sass-cache/
   - .jekyll-cache/
@@ -156,3 +283,32 @@ exclude:
   - node_modules/
   - vendor/
   - README.md
+  - .gitignore
+  - .git/
+  - Makefile
+  - package.json
+  - package-lock.json
+
+# 包含文件
+include:
+  - _pages
+  - .htaccess
+
+# Sass配置
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# 时区设置
+timezone: Asia/Shanghai
+
+# 编码
+encoding: utf-8
+
+# 生成设置
+future: false
+unpublished: false
+safe: true
+incremental: false
+profile: false
+strict_front_matter: false
